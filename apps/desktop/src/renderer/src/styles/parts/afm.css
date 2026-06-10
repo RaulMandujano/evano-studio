@@ -1,0 +1,175 @@
+/* ================================ AFM =====================================
+   Agent File Management: root chooser cards + a clean folder-tree view with
+   indent guides. Pure CSS, matches the org-chart visual language. */
+
+/* ----- root chooser cards ----- */
+.afm-choices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin: 14px 0 6px;
+}
+
+.afm-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text);
+  text-align: left;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.afm-choice:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-1);
+}
+
+.afm-choice.is-active {
+  border-color: var(--accent);
+  background: linear-gradient(180deg, var(--accent-soft), transparent 70%), var(--surface-2);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.afm-choice-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.afm-choice-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.afm-choice-desc {
+  font-size: 12px;
+  line-height: 1.45;
+  word-break: break-all;
+}
+
+/* ----- folder tree ----- */
+.afm-tree-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.afm-tree {
+  font-size: 13.5px;
+}
+
+.afm-branch {
+  margin-left: 13px;
+  padding-left: 18px;
+  border-left: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 4px;
+  padding-bottom: 6px;
+}
+
+.afm-node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  transition: background 0.13s ease;
+}
+
+.afm-branch > .afm-node::before,
+.afm-branch > .afm-team > .afm-node:first-child::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 50%;
+  width: 14px;
+  border-top: 2px solid var(--border);
+}
+
+.afm-node:hover {
+  background: var(--surface-2);
+}
+
+.afm-node--root {
+  background: linear-gradient(180deg, rgba(124, 140, 255, 0.08), transparent), var(--surface-2);
+  border: 1px solid var(--border-strong);
+  padding: 11px 14px;
+}
+
+.afm-node--dir .afm-node-name {
+  font-weight: 700;
+}
+
+.afm-node--small {
+  padding: 4px 10px;
+  font-size: 12.5px;
+}
+
+.afm-node--empty:hover {
+  background: transparent;
+}
+
+.afm-node-icon {
+  flex: none;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.afm-node-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.afm-node-hint {
+  font-size: 11.5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.afm-node-open {
+  margin-left: auto;
+  flex: none;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.13s ease, background 0.13s ease;
+}
+
+.afm-node:hover .afm-node-open {
+  opacity: 1;
+}
+
+.afm-node-open:hover {
+  background: var(--accent-soft);
+}
+
+.afm-link {
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--accent);
+  font-size: inherit;
+  text-decoration: underline;
+}
+
+.afm-team {
+  display: flex;
+  flex-direction: column;
+}

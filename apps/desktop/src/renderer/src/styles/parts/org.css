@@ -1,0 +1,235 @@
+/* ============================== Org Chart ================================
+   Company-style tree (Apple-org-chart inspired): avatar medallion, gradient
+   name pill, soft cards, CSS connectors. Pure CSS, no chart library. */
+
+.org-explainer p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* The "floor" the chart sits on — subtle blueprint dot grid. */
+.org-tree-wrap {
+  overflow-x: auto;
+  padding: 30px 12px 26px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(rgba(124, 140, 255, 0.07) 1px, transparent 1.5px) 0 0 / 22px 22px,
+    linear-gradient(180deg, rgba(124, 140, 255, 0.03), transparent 55%),
+    var(--bg-elev);
+}
+
+/* ----- tree connectors (classic nested-list org chart) ----- */
+.org-tree,
+.org-tree ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.org-tree ul {
+  padding-top: 30px;
+  position: relative;
+}
+
+/* vertical line dropping from a manager to its children row */
+.org-tree ul::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 30px;
+  border-left: 2px solid var(--border-strong);
+}
+
+.org-tree li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 30px 14px 0;
+}
+
+.org-tree > li {
+  padding-top: 0;
+}
+
+/* horizontal rail + riser above each child */
+.org-tree li::before,
+.org-tree li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 50%;
+  width: 50%;
+  height: 30px;
+  border-top: 2px solid var(--border-strong);
+}
+
+.org-tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid var(--border-strong);
+}
+
+.org-tree li:only-child::before,
+.org-tree li:only-child::after {
+  border-top: none;
+}
+
+.org-tree li:only-child::after {
+  border-left: 2px solid var(--border-strong);
+  left: 50%;
+}
+
+.org-tree li:first-child::before,
+.org-tree li:last-child::after {
+  border-top: none;
+}
+
+.org-tree li:last-child::before {
+  border-right: 2px solid var(--border-strong);
+  border-top-right-radius: 8px;
+}
+
+.org-tree li:first-child::after {
+  border-top-left-radius: 8px;
+}
+
+.org-tree > li::before,
+.org-tree > li::after {
+  display: none;
+}
+
+/* ----- node cards ----- */
+.org-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 188px;
+  max-width: 224px;
+  margin-top: 26px; /* room for the floating avatar medallion */
+  padding: 34px 16px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(180deg, var(--surface-3), var(--surface-2) 60%);
+  box-shadow: var(--shadow-1);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.org-node:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-2), 0 0 0 3px var(--accent-soft);
+}
+
+/* avatar medallion floating over the top edge, with a gradient ring */
+.org-node-avatar {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  line-height: 1;
+  background: var(--surface-3);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow:
+    0 0 0 2px var(--bg-elev),
+    0 0 0 4px var(--accent),
+    0 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+/* gradient name pill, like the reference org chart */
+.org-node-name {
+  display: inline-block;
+  max-width: 100%;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #0b0e16;
+  background: linear-gradient(135deg, #7ee8db, var(--teal));
+  box-shadow: 0 2px 10px rgba(45, 212, 191, 0.25);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.org-node--manager .org-node-name {
+  background: linear-gradient(135deg, #97a5ff, var(--accent));
+  box-shadow: 0 2px 10px rgba(124, 140, 255, 0.3);
+}
+
+.org-node-model {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.org-node-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.org-node-boss {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  width: 100%;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-faint);
+}
+
+.org-node-boss select {
+  width: 100%;
+  font-size: 12.5px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* ----- sticky save bar (glassy) ----- */
+.org-savebar {
+  position: sticky;
+  bottom: 14px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent-strong);
+  background: rgba(27, 32, 48, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 12.5px;
+  color: var(--text-muted);
+  box-shadow: var(--shadow-2);
+}
+
+.org-savebar .form-actions {
+  margin: 0;
+}

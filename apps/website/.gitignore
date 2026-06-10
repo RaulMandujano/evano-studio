@@ -1,0 +1,9 @@
+# Next.js
+/.next/
+/out/
+next-env.d.ts.bak
+
+# Build / deps (also covered by the repo root .gitignore)
+/node_modules/
+/build
+*.tsbuildinfo

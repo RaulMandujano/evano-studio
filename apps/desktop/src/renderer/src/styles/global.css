@@ -1,0 +1,18 @@
+/**
+ * Evano Studio renderer styles.
+ *
+ * Split into focused partials under `parts/`. The import order matters (CSS
+ * cascade), so keep these in source order — each file owns one area of the UI.
+ */
+@import "./parts/base.css"; /* design tokens, reset, base elements */
+@import "./parts/layout.css"; /* app shell: layout, sidebar, topbar */
+@import "./parts/buttons-badges.css"; /* badges, buttons, agent-engine panel */
+@import "./parts/views-ai.css"; /* models, agents, chat */
+@import "./parts/views-workspace.css"; /* documents, knowledge, tools, settings, routines, calendar */
+@import "./parts/ui.css"; /* page header, cards, status grid, easy start, misc */
+@import "./parts/openclaw.css"; /* OpenClaw: install flow, dashboard, channels, agents, teams */
+@import "./parts/office.css"; /* the Office: desks, break room, activity feed */
+@import "./parts/org.css"; /* Org Chart: tree, node cards, manager editor */
+@import "./parts/chats.css"; /* Chats: grouped session browser + conversation pane */
+@import "./parts/afm.css"; /* AFM: root chooser + folder tree */
+@import "./parts/responsive.css"; /* breakpoints */

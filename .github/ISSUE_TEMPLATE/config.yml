@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/evano-studio/evano-studio/tree/main/docs
+    about: Read the docs before filing — many questions are answered there.
+  - name: Security vulnerability
+    url: https://github.com/evano-studio/evano-studio/security/policy
+    about: Please report security issues privately (see SECURITY.md), not as a public issue.

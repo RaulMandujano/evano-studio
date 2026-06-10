@@ -1,0 +1,8 @@
+# pnpm workspace definition for Evano Studio.
+#
+# Only the JavaScript/TypeScript workspaces are listed here. The Python
+# backend (services/agent-engine) is intentionally NOT a pnpm workspace —
+# it is managed with Python tooling (see docs/PROJECT_STRUCTURE.md).
+packages:
+  - "apps/*"
+  - "packages/*"

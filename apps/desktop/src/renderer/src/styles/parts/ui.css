@@ -1,0 +1,324 @@
+/* ------------------------------- Page header ----------------------------- */
+.view {
+  max-width: 1080px;
+}
+.view--wide {
+  max-width: 1280px;
+}
+.page-header {
+  margin-bottom: 22px;
+}
+.page-header-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+}
+.page-title-icon {
+  font-size: 1.4rem;
+}
+.page-subtitle {
+  margin-top: 8px;
+  color: var(--text-muted);
+  max-width: 720px;
+  font-size: 0.98rem;
+}
+
+/* ---------------------------------- Cards -------------------------------- */
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%), var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow-1);
+}
+
+/* ------------------------------ Status grid ------------------------------ */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.status-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  transition: border-color 0.15s ease, transform 0.06s ease;
+}
+.status-card:hover {
+  border-color: var(--border-strong);
+}
+.status-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.status-card-icon {
+  font-size: 1.3rem;
+}
+.status-card-title {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+.status-card-hint {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ----------------------------- Environment card -------------------------- */
+.env-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.env-card-head h3 {
+  font-size: 1.05rem;
+}
+.env-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin: 0 0 14px;
+}
+.env-grid dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+  margin-bottom: 3px;
+}
+.env-grid dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  color: var(--text);
+}
+.env-note {
+  color: var(--text-faint);
+  font-size: 0.82rem;
+}
+
+/* ------------------------------ Placeholder ------------------------------ */
+.placeholder-card {
+  max-width: 720px;
+}
+.placeholder-lead {
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.planned-list {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.planned-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+.planned-dot {
+  margin-top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.placeholder-note {
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 0.85rem;
+}
+
+/* ------------------------------ Easy Start ------------------------------- */
+.setup-progress-card {
+  margin-bottom: 18px;
+}
+.setup-progress-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.setup-progress-title {
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+}
+.setup-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.setup-step {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.setup-step--ok {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+.setup-step-marker {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: var(--surface-3);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.setup-step-marker--ok {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  color: var(--text);
+  border-color: var(--accent);
+}
+.setup-step-marker--error {
+  color: #ff8a8a;
+  border-color: #ff8a8a;
+}
+.setup-step-body {
+  flex: 1;
+  min-width: 0;
+}
+.setup-step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.setup-step-title {
+  margin: 0;
+  font-size: 0.98rem;
+}
+.setup-step-num {
+  color: var(--text-faint);
+}
+.setup-step-explain {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+.setup-step-detail {
+  margin: 6px 0 0;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  word-break: break-all;
+}
+.setup-step-action {
+  margin-top: 10px;
+}
+
+/* --------------------------- Workspace subdirs --------------------------- */
+.workspace-subdirs {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.workspace-subdirs li {
+  font-size: 0.82rem;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.subdir--ok {
+  color: var(--text);
+}
+.subdir--missing {
+  color: var(--text-faint);
+}
+
+/* ----------------------------- Tool log list ----------------------------- */
+.tool-log-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tool-log-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.tool-log-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.tool-log-action {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.tool-log-detail {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.tool-log-meta {
+  font-size: 0.78rem;
+}
+
+/* --------------------------- Chat tool badge ----------------------------- */
+.chat-tool-badge {
+  align-self: flex-start;
+  font-size: 0.74rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.chat-file-card {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 8px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  max-width: 100%;
+}
+.chat-file-icon {
+  font-size: 1.1rem;
+}
+.chat-file-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.chat-file-name {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+.chat-file-path {
+  font-size: 0.76rem;
+  color: var(--text-faint);
+}
+

@@ -1,0 +1,37 @@
+/* ------------------------------ Responsive ------------------------------- */
+@media (max-width: 1040px) {
+  .status-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .oc-choice-grid {
+    grid-template-columns: 1fr;
+  }
+  .oc-flow-step-body,
+  .oc-flow-locked-hint {
+    padding-left: 0;
+  }
+}
+@media (max-width: 760px) {
+  :root {
+    --sidebar-w: 84px;
+  }
+  .sidebar-brand-text,
+  .nav-group-title,
+  .nav-item-label,
+  .sidebar-version {
+    display: none;
+  }
+  .nav-item {
+    justify-content: center;
+  }
+  .sidebar-footer {
+    justify-content: center;
+  }
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+  .app-content,
+  .topbar {
+    padding-inline: 18px;
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "evano-studio",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Evano Studio — create local AI agents for your business without paid APIs, cloud lock-in, or the terminal. Local-first, privacy-first, open source.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node scripts/dev/print-dev-help.mjs",
+    "dev:desktop": "pnpm --filter @evano/desktop dev",
+    "dev:website": "pnpm --filter @evano/website dev",
+    "dev:agent-engine": "bash scripts/dev/agent-engine.sh",
+    "lint": "pnpm -r --if-present lint",
+    "test": "pnpm -r --if-present test",
+    "format": "pnpm -r --if-present format"
+  }
+}

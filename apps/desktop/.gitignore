@@ -1,0 +1,10 @@
+# electron-vite build output
+/out/
+/dist/
+
+# electron-builder packaging output
+/release/
+
+# deps (also covered by repo root .gitignore)
+/node_modules/
+*.tsbuildinfo

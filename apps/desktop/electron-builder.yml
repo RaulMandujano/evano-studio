@@ -1,0 +1,59 @@
+# electron-builder configuration for Evano Studio.
+# macOS is the first target; Windows config is prepared for later.
+# No code signing / notarization yet (see docs/PACKAGING.md).
+
+appId: com.evano.studio
+productName: Evano Studio
+copyright: Copyright © 2026 Evano
+
+# Use forward slashes; no absolute/local paths so builds are portable.
+directories:
+  output: release
+  buildResources: build
+
+# Only ship the bundled app output + manifest. The Vite build inlines the
+# renderer deps, and main/preload only use Electron + Node built-ins.
+files:
+  - out/**/*
+  - package.json
+
+# Where the built JS lives (relative).
+asar: true
+
+# Bundle the frozen Python backend (built by scripts/build-desktop.sh via
+# PyInstaller) so clients never need Python or a terminal. It lands at
+# <resources>/evano-backend/evano-backend and the app auto-starts it.
+extraResources:
+  - from: ../../services/agent-engine/dist-backend/evano-backend
+    to: evano-backend
+    filter:
+      - "**/*"
+
+mac:
+  category: public.app-category.productivity
+  target:
+    - dmg
+    - zip
+  # Do NOT sign or notarize yet. Leaving identity null produces an unsigned
+  # build instead of failing when no signing identity is configured.
+  identity: null
+  icon: build/icon.icns
+
+dmg:
+  title: ${productName}
+
+# Prepared for a future Windows target (not built by default on macOS).
+win:
+  target:
+    - nsis
+  icon: build/icon.ico
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+
+linux:
+  target:
+    - AppImage
+  category: Utility
+  icon: build/icon.png

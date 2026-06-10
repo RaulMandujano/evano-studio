@@ -1,0 +1,489 @@
+/* ------------------------------ Documents view --------------------------- */
+.doc-list {
+  display: grid;
+  gap: 10px;
+}
+.doc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+}
+.doc-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.doc-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.doc-sub {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+.doc-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.doc-preview {
+  margin-top: 16px;
+}
+.doc-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.doc-preview-head h3 {
+  font-size: 1.05rem;
+}
+.doc-preview-content {
+  margin: 0;
+  max-height: 360px;
+  overflow: auto;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-muted);
+}
+
+/* ----------------------------- Knowledge base ---------------------------- */
+.kb-search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.kb-search input {
+  flex: 1;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.92rem;
+  padding: 10px 12px;
+}
+.kb-search input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.kb-results {
+  display: grid;
+  gap: 10px;
+}
+.kb-result {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.kb-result-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+.kb-result-text {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+.chat-sources {
+  font-size: 0.74rem;
+  color: var(--text-faint);
+  padding: 0 2px;
+}
+
+/* ------------------------------- Agent tools ----------------------------- */
+.form-tools {
+  margin: 6px 0 14px;
+}
+.form-tools-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.tool-toggle-list {
+  display: grid;
+  gap: 8px;
+}
+.tool-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+}
+.tool-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.tool-toggle-desc {
+  color: var(--text-faint);
+  font-size: 0.8rem;
+  padding-left: 24px;
+}
+
+/* -------------------------------- Settings ------------------------------- */
+.settings-section-title {
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+.workspace-row {
+  display: flex;
+  gap: 8px;
+}
+.workspace-row input {
+  flex: 1;
+}
+.settings-ok {
+  color: var(--teal);
+  font-size: 0.86rem;
+  margin-top: 10px;
+}
+.tool-result {
+  margin-top: 14px;
+}
+.card-spaced {
+  margin-top: 18px;
+}
+
+/* Logs */
+.log-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 16px 0 12px;
+}
+.log-chip {
+  border: 1px solid var(--border-strong);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 5px 11px;
+  border-radius: 999px;
+}
+.log-chip.is-active {
+  background: var(--accent-soft);
+  color: var(--text);
+  border-color: rgba(124, 140, 255, 0.4);
+}
+.log-list {
+  display: grid;
+  gap: 2px;
+  font-size: 0.84rem;
+}
+.log-row {
+  display: grid;
+  grid-template-columns: 64px 96px 84px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.log-row:nth-child(odd) {
+  background: var(--surface);
+}
+.log-level {
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+.log-level--error {
+  color: #f87171;
+}
+.log-level--warn {
+  color: var(--amber);
+}
+.log-level--info {
+  color: var(--text-faint);
+}
+.log-area {
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+.log-time {
+  color: var(--text-faint);
+  font-size: 0.76rem;
+}
+.log-message {
+  color: var(--text-muted);
+  word-break: break-word;
+}
+
+/* Local services */
+.service-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+.service-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev);
+}
+.service-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-right: 8px;
+}
+.service-sub {
+  color: var(--text-faint);
+  font-size: 0.8rem;
+}
+.service-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.image-panel .form-actions {
+  margin-top: 4px;
+}
+.image-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* -------------------------------- Routines ------------------------------- */
+.run-list {
+  display: grid;
+  gap: 10px;
+}
+.run-item {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+.run-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.run-output {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  white-space: pre-wrap;
+}
+.run-doc {
+  font-size: 0.76rem;
+  margin: 6px 0 0;
+}
+.routine-detail .engine-grid {
+  margin-top: 0;
+}
+
+/* -------------------------------- Calendar ------------------------------- */
+.cal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.cal-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cal-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-left: 6px;
+}
+.cal-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cal-modeswitch {
+  display: inline-flex;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.cal-mode {
+  border: none;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 7px 14px;
+}
+.cal-mode.is-active {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 18px;
+  align-items: start;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.cal-weekday {
+  text-align: center;
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-faint);
+}
+.cal-grid {
+  display: grid;
+  gap: 6px;
+}
+.cal-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.cal-cell {
+  min-height: 92px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+}
+.cal-cell--dim {
+  opacity: 0.45;
+}
+.cal-cell--today {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px rgba(124, 140, 255, 0.3);
+}
+.cal-daynum {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.cal-events {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+.cal-event {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  width: 100%;
+  text-align: left;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 0.72rem;
+  color: var(--text);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.cal-event-time {
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+.cal-event-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cal-event--scheduled {
+  background: var(--accent-soft);
+  border-color: rgba(124, 140, 255, 0.3);
+}
+.cal-event--success {
+  background: var(--teal-soft);
+  border-color: rgba(45, 212, 191, 0.3);
+}
+.cal-event--error {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.3);
+}
+.cal-event--missed {
+  background: var(--amber-soft);
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+/* Week view */
+.week {
+  display: grid;
+  gap: 8px;
+}
+.week-day {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+.week-day-head {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.week-day-head.is-today {
+  color: var(--accent);
+}
+.week-day-events {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.week-empty {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 980px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+}
+

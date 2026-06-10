@@ -1,0 +1,972 @@
+/* ------------------------------ OpenClaw --------------------------------- */
+.oc-checklist {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.oc-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.oc-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+.oc-mark.is-ok {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: var(--accent);
+  color: var(--text);
+}
+.oc-mark.is-missing {
+  color: var(--text-faint);
+}
+.oc-check-label {
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.oc-check-ver {
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+/* Push the action button / badge to the right edge of the row. */
+.oc-check > .button,
+.oc-check > .badge {
+  margin-left: auto;
+}
+
+/* ------------------- OpenClaw guided "easy install" flow ----------------- */
+/* Hero */
+.oc-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.oc-hero.is-ready {
+  border-color: color-mix(in srgb, var(--teal) 45%, var(--border));
+  background: color-mix(in srgb, var(--teal) 7%, var(--surface));
+}
+.oc-hero-title {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+}
+.oc-hero-text {
+  min-width: 0;
+}
+
+/* Top stepper (1 — 2 — 3) */
+.flow-stepper {
+  display: flex;
+  align-items: center;
+  margin: 0 0 18px;
+  padding: 4px 2px;
+}
+.flow-stepper-seg {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.flow-stepper-seg:last-child {
+  flex: 0 0 auto;
+}
+.flow-stepper-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.flow-stepper-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: var(--surface-3);
+  color: var(--text-faint);
+  border: 1px solid var(--border);
+}
+.flow-stepper-item.is-done .flow-stepper-dot {
+  background: color-mix(in srgb, var(--teal) 22%, transparent);
+  border-color: var(--teal);
+  color: var(--text);
+}
+.flow-stepper-item.is-current .flow-stepper-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.flow-stepper-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.flow-stepper-item.is-current .flow-stepper-label,
+.flow-stepper-item.is-done .flow-stepper-label {
+  color: var(--text);
+}
+.flow-stepper-line {
+  flex: 1;
+  height: 2px;
+  margin: 0 12px;
+  background: var(--border);
+  border-radius: 2px;
+}
+.flow-stepper-line.is-done {
+  background: color-mix(in srgb, var(--teal) 55%, var(--border));
+}
+
+/* Step cards */
+.oc-flow-step {
+  margin-bottom: 14px;
+}
+.oc-flow-step--current {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  box-shadow: 0 0 0 1px var(--accent-soft);
+}
+.oc-flow-step--locked {
+  opacity: 0.62;
+}
+.oc-flow-step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.oc-flow-step-num {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  background: var(--surface-3);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.oc-flow-step-num.is-current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.oc-flow-step-num.is-done {
+  background: color-mix(in srgb, var(--teal) 22%, transparent);
+  border-color: var(--teal);
+  color: var(--text);
+}
+.oc-flow-step-title-wrap {
+  flex: 1;
+  min-width: 0;
+}
+.oc-flow-step-title {
+  margin: 2px 0 2px;
+  font-size: 1rem;
+}
+.oc-flow-step-intro {
+  margin: 0;
+  font-size: 0.86rem;
+}
+.oc-flow-step-status {
+  flex-shrink: 0;
+}
+.oc-flow-step-body {
+  margin-top: 14px;
+  padding-left: 48px;
+}
+.oc-flow-locked-hint {
+  margin: 12px 0 0;
+  padding-left: 48px;
+  font-size: 0.85rem;
+}
+
+/* Step 2: AI choice cards */
+.oc-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.oc-choice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.oc-choice:hover {
+  border-color: var(--accent);
+}
+.oc-choice.is-selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.oc-choice input {
+  margin-top: 3px;
+}
+.oc-choice-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.oc-choice-desc {
+  margin: 3px 0 0;
+  font-size: 0.8rem;
+}
+
+/* Web search row in Get Started */
+.oc-websearch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.oc-websearch-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ------------------- Embedded OpenClaw dashboard (webview) --------------- */
+.oc-dashboard-view {
+  display: flex;
+  flex-direction: column;
+}
+.oc-dash-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.oc-webview-frame {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 540px;
+  height: calc(100vh - var(--topbar-h) - 160px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+/* webview is a replaced element — fill it via flex, not height:100% (unreliable). */
+.oc-webview {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+}
+
+/* ----------------------------- Channels --------------------------------- */
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.channel-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.channel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.channel-icon {
+  font-size: 1.4rem;
+}
+.channel-name {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.channel-head > .badge {
+  margin-left: auto;
+}
+.channel-hint {
+  margin: 0;
+  font-size: 0.82rem;
+}
+.channel-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ----------------- Native OpenClaw agent detail (chat + config) ---------- */
+.oc-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.oc-detail-title {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.oc-detail-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.oc-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted);
+  padding: 8px 14px;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.oc-tab.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+/* Chat + history */
+.oc-chat-shell {
+  display: flex;
+  gap: 14px;
+  height: calc(100vh - var(--topbar-h) - 230px);
+  min-height: 460px;
+}
+.oc-history {
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.oc-history-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.oc-history-list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.oc-history-empty {
+  margin: 16px 8px;
+  font-size: 0.82rem;
+}
+.oc-history-item {
+  position: relative;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 9px 26px 9px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.oc-history-item.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.oc-history-preview {
+  font-size: 0.84rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.oc-history-meta {
+  font-size: 0.71rem;
+  color: var(--text-faint);
+}
+.oc-history-del {
+  position: absolute;
+  top: 6px;
+  right: 7px;
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  padding: 2px;
+  line-height: 1;
+}
+.oc-history-del:hover {
+  color: #ff8a8a;
+}
+.oc-history-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-top: 1px solid var(--border);
+  font-size: 0.74rem;
+}
+.oc-clear-btn {
+  background: none;
+  border: none;
+  color: #ff8a8a;
+  cursor: pointer;
+  font-size: 0.74rem;
+  padding: 0;
+}
+.oc-clear-btn:hover {
+  text-decoration: underline;
+}
+.oc-chat-card {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+}
+.oc-chat-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.oc-chat-bar-note {
+  font-size: 0.8rem;
+}
+.oc-chat-log {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 4px;
+}
+.oc-chat-empty {
+  margin: auto;
+  text-align: center;
+}
+.oc-msg {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 0.92rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.45;
+}
+.oc-msg--user {
+  align-self: flex-end;
+  background: var(--accent);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.oc-msg--agent {
+  align-self: flex-start;
+  background: var(--surface-3);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+.oc-msg--error {
+  align-self: flex-start;
+  background: color-mix(in srgb, #ff6b6b 16%, var(--surface-2));
+  border: 1px solid color-mix(in srgb, #ff6b6b 40%, var(--border));
+  color: #ffb4b4;
+}
+.oc-msg--thinking {
+  opacity: 0.7;
+  font-style: italic;
+}
+.oc-chat-input {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin-top: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.oc-chat-input textarea {
+  flex: 1;
+  resize: none;
+}
+
+/* Config editor */
+.oc-config-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+.oc-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.oc-file-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  padding: 9px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.oc-file-item.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.oc-file-label {
+  font-size: 0.9rem;
+  color: var(--text);
+  font-weight: 600;
+}
+.oc-file-name {
+  font-size: 0.72rem;
+  color: var(--text-faint);
+}
+.oc-file-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.oc-file-editor textarea {
+  width: 100%;
+  height: calc(100vh - var(--topbar-h) - 320px);
+  min-height: 320px;
+  resize: vertical;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 1040px) {
+  .oc-config-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------------------- Topbar "team working" pill ----------------------- */
+.topbar-team-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.topbar-team-pill:hover {
+  border-color: var(--accent);
+}
+.topbar-spinner {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-top-color: var(--accent);
+  animation: evano-spin 0.7s linear infinite;
+}
+@keyframes evano-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ------------------------------ Agent Teams ------------------------------ */
+.team-pick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.team-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.team-chip:hover {
+  border-color: var(--accent);
+}
+.team-chip.is-picked {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.team-chip-x {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.team-chip.is-picked .team-chip-x {
+  background: var(--accent);
+  color: #fff;
+}
+/* Team pipeline (ordered members with roles) */
+.team-pipeline {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.team-member-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.team-member-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.team-role-input {
+  flex: 1;
+  min-width: 0;
+}
+.team-member-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.team-member-actions button {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-3);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+.team-member-actions button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--text);
+}
+.team-member-actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.team-step-role {
+  font-size: 0.76rem;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.team-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.team-step {
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.team-step--working {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+.team-step--done {
+  border-color: color-mix(in srgb, var(--teal) 35%, var(--border));
+}
+.team-step-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.team-step-num {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.team-step-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.team-step-head > .badge {
+  margin-left: auto;
+}
+.team-step-output {
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.team-final {
+  border-color: color-mix(in srgb, var(--teal) 45%, var(--border));
+  background: color-mix(in srgb, var(--teal) 6%, var(--surface));
+}
+.team-final-output {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+}
+.team-final--spaced {
+  margin-top: 14px;
+}
+
+/* Workflow pipeline (builder + read-only) */
+.team-flow {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.team-flow-step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.team-flow--readonly .team-flow-step {
+  background: var(--surface);
+}
+.team-flow-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.team-flow-agent {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.team-flow-line .team-member-actions {
+  margin-left: auto;
+}
+.team-flow-task,
+.team-flow-task-read {
+  width: 100%;
+}
+.team-flow-task-read {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  line-height: 1.45;
+}
+.team-flow-arrow {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+  padding: 4px 0 0;
+}
+.team-automate {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.team-automate-form {
+  margin-top: 8px;
+  padding: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* --------------------------- Agent templates ----------------------------- */
+.templates-strip {
+  margin-bottom: 16px;
+}
+.templates-strip-label {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.templates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.template-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.template-card:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+}
+.template-icon {
+  font-size: 1.3rem;
+}
+.template-name {
+  font-size: 0.92rem;
+  color: var(--text);
+  font-weight: 600;
+}
+.template-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* --------------------------- Approval card ------------------------------- */
+.approval-card {
+  margin: 10px 0;
+  padding: 14px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface-2));
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  border-radius: var(--radius);
+}
+.approval-head {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.approval-preview {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 140px;
+  overflow: auto;
+}
+.approval-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ----- Agents view toolbar (agents first, create behind a button) ----- */
+.agents-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.agents-toolbar .section-label {
+  margin: 0;
+}
+
+/* ----- per-agent Discord connect wizard ----- */
+.dsc-steps {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dsc-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.dsc-step-num {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-strong);
+}
+
+.dsc-step-body {
+  min-width: 0;
+}
+
+.dsc-step-title {
+  margin: 1px 0 2px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.dsc-step-desc {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+

@@ -1,0 +1,66 @@
+# ───────────────────────────── Node / JS / TS ─────────────────────────────
+node_modules/
+dist/
+build/
+out/
+.next/
+.turbo/
+*.tsbuildinfo
+coverage/
+
+# ───────────────────────────── Env / secrets ──────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ───────────────────────────── Python ─────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.python-version
+
+# ───────────────────── Local development data (do NOT commit) ──────────────
+# Keep the folders (via .gitkeep) but never commit user/runtime data.
+data/sqlite/*
+!data/sqlite/.gitkeep
+data/chroma/*
+!data/chroma/.gitkeep
+data/logs/*
+!data/logs/.gitkeep
+data/workspace/*
+!data/workspace/.gitkeep
+
+# SQLite database files (anywhere)
+*.sqlite
+*.sqlite3
+*.db
+
+# Log files (anywhere)
+*.log
+
+# ───────────────────────────── OS files ───────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ───────────────────────────── Editor / IDE ───────────────────────────────
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+
+# ───────────────────────────── AI assistant local config ──────────────────
+.claude/
+
+# ───────────────────────────── Packaged backend artifacts ─────────────────
+services/agent-engine/dist-backend/
+services/agent-engine/build-backend/

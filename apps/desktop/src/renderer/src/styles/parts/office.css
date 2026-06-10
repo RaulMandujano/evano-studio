@@ -1,0 +1,498 @@
+/* ============================== The Office ===============================
+   A live visual of agents as office workers: desks (working), break room
+   (idle / off duty), and the activity feed. Pure CSS — no canvas, no libs. */
+
+.office-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 16px;
+  align-items: start;
+}
+
+.office-floor {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* ----- zones (work area / break room) ----- */
+.office-zone {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.office-zone--work {
+  background:
+    linear-gradient(180deg, rgba(124, 140, 255, 0.04), transparent 60%),
+    var(--surface);
+}
+
+.office-zone--break {
+  background:
+    linear-gradient(180deg, rgba(251, 191, 36, 0.04), transparent 60%),
+    var(--surface);
+}
+
+.office-zone-head {
+  margin-bottom: 14px;
+}
+
+.office-zone-head h3 {
+  margin: 0 0 2px;
+  font-size: 15px;
+}
+
+.office-zone-head p {
+  margin: 0;
+  font-size: 12.5px;
+}
+
+/* ----- desks ----- */
+.office-desk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 26px 14px;
+}
+
+.office-desk {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px 10px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.office-desk--busy {
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 18px rgba(124, 140, 255, 0.12);
+}
+
+/* speech bubble with the current task */
+.desk-bubble {
+  position: absolute;
+  top: -14px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  padding: 5px 9px;
+  border-radius: 10px;
+  border: 1px solid var(--accent-strong);
+  background: var(--surface-3);
+  font-size: 11px;
+  line-height: 1.3;
+  z-index: 2;
+  animation: office-pop 0.25s ease;
+}
+
+.desk-bubble-task {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: var(--text);
+}
+
+/* monitor + desk drawn in CSS */
+.desk-monitor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desk-screen {
+  width: 64px;
+  height: 38px;
+  border-radius: 6px;
+  border: 2px solid var(--border-strong);
+  background: #0b0e15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.office-desk--busy .desk-screen {
+  background: linear-gradient(160deg, #1b2342, #11203a);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(124, 140, 255, 0.35);
+}
+
+.desk-typing {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.desk-typing i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: office-typing 1.1s infinite ease-in-out;
+}
+
+.desk-typing i:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.desk-typing i:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+.desk-stand {
+  width: 10px;
+  height: 8px;
+  background: var(--border-strong);
+}
+
+.desk-surface {
+  width: 86%;
+  height: 7px;
+  border-radius: 3px;
+  background: var(--surface-3);
+  border: 1px solid var(--border-strong);
+}
+
+.desk-seat {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.desk-worker {
+  font-size: 26px;
+  line-height: 1;
+  animation: office-bob 1.6s infinite ease-in-out;
+}
+
+/* empty chair while the agent is on break */
+.desk-chair {
+  width: 18px;
+  height: 16px;
+  border-radius: 5px 5px 2px 2px;
+  border: 2px solid var(--border-strong);
+  border-top-width: 6px;
+  opacity: 0.7;
+}
+
+.desk-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  max-width: 100%;
+  font-size: 12px;
+  color: var(--text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.office-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.office-dot--busy {
+  background: var(--teal);
+  animation: office-pulse 1.4s infinite ease-in-out;
+}
+
+.office-dot--idle {
+  background: var(--text-faint);
+}
+
+/* ----- break room ----- */
+.break-floor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  min-height: 76px;
+  align-items: flex-end;
+}
+
+.break-worker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 12px 6px;
+}
+
+.break-avatar {
+  font-size: 26px;
+  line-height: 1;
+  animation: office-sway 2.6s infinite ease-in-out;
+}
+
+.break-prop {
+  position: absolute;
+  right: 2px;
+  top: 26px;
+  font-size: 13px;
+}
+
+.break-steam {
+  position: absolute;
+  right: 4px;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+  color: var(--text-faint);
+}
+
+.break-steam i {
+  font-style: normal;
+  animation: office-steam 2.2s infinite ease-out;
+}
+
+.break-steam i:nth-child(2) {
+  animation-delay: 1.1s;
+}
+
+.break-name {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  max-width: 110px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.break-worker--off {
+  opacity: 0.55;
+}
+
+.break-worker--off .break-avatar {
+  animation: none;
+}
+
+.break-zzz {
+  position: absolute;
+  top: -4px;
+  right: 0;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--text-faint);
+  animation: office-zzz 2.8s infinite ease-in-out;
+}
+
+.break-empty {
+  font-size: 26px;
+  opacity: 0.6;
+}
+
+/* ----- activity feed ----- */
+.office-feed {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  max-height: calc(100vh - var(--topbar-h) - 120px);
+  overflow-y: auto;
+}
+
+.office-feed .section-label {
+  margin-top: 14px;
+}
+
+.office-feed .section-label:first-child {
+  margin-top: 0;
+}
+
+.feed-quiet {
+  font-size: 12.5px;
+}
+
+.feed-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.feed-row {
+  display: flex;
+  gap: 9px;
+  padding: 9px 2px;
+  border-bottom: 1px solid var(--border);
+}
+
+.feed-row:last-child {
+  border-bottom: none;
+}
+
+.feed-status {
+  flex: none;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.feed-body {
+  min-width: 0;
+}
+
+.feed-body p {
+  margin: 0;
+}
+
+.feed-line {
+  font-size: 12.5px;
+}
+
+.feed-kind {
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+.feed-task {
+  font-size: 12px;
+  color: var(--text-muted);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.feed-note {
+  font-size: 11.5px;
+  color: var(--amber);
+}
+
+.feed-row--error .feed-note {
+  color: #f87171;
+}
+
+.feed-when {
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-top: 2px;
+}
+
+/* ----- closed / empty office ----- */
+.office-closed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 36px 16px;
+}
+
+.office-closed-icon {
+  font-size: 40px;
+}
+
+.office-closed h3 {
+  margin: 0;
+}
+
+.office-closed p {
+  max-width: 420px;
+  margin: 0 0 8px;
+}
+
+/* ----- animations ----- */
+@keyframes office-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes office-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes office-typing {
+  0%,
+  60%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes office-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--teal-soft);
+  }
+  50% {
+    box-shadow: 0 0 0 5px var(--teal-soft);
+  }
+}
+
+@keyframes office-steam {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  40% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes office-zzz {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes office-pop {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ----- narrow windows ----- */
+@media (max-width: 1100px) {
+  .office-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .office-feed {
+    max-height: none;
+  }
+}
