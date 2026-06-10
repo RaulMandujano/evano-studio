@@ -1,5 +1,5 @@
 import { Section, SectionHead } from "@/components/ui/Section";
-import { siteConfig, techStack } from "@/content/site";
+import { hasRepo, siteConfig, techStack } from "@/content/site";
 
 export function OpenSource() {
   return (
@@ -57,7 +57,7 @@ export function OpenSource() {
         <a
           className="btn btn--secondary"
           href={siteConfig.links.github}
-          aria-disabled={siteConfig.links.github === "#"}
+          aria-disabled={!hasRepo}
           rel="noopener noreferrer"
         >
           View on GitHub (coming soon)

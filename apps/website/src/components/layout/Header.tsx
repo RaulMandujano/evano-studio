@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navLinks, siteConfig } from "@/content/site";
+import { hasRepo, navLinks, siteConfig } from "@/content/site";
 
 /** Sticky top navigation. CSS-only responsive behavior (no client JS). */
 export function Header() {
@@ -28,7 +28,7 @@ export function Header() {
             <a
               className="btn btn--ghost"
               href={siteConfig.links.github}
-              aria-disabled={siteConfig.links.github === "#"}
+              aria-disabled={!hasRepo}
               rel="noopener noreferrer"
             >
               GitHub

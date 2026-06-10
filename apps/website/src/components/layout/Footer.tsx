@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { siteConfig } from "@/content/site";
+import { hasRepo, siteConfig } from "@/content/site";
 
 const productLinks = [
   { href: "/", label: "Home" },
@@ -55,7 +55,7 @@ export function Footer() {
             <h4>Project</h4>
             <a
               href={siteConfig.links.github}
-              aria-disabled={siteConfig.links.github === "#"}
+              aria-disabled={!hasRepo}
               rel="noopener noreferrer"
             >
               GitHub (coming soon)
