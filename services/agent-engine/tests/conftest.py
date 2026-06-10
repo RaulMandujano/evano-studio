@@ -16,6 +16,16 @@ from app.core.config import Settings
 from app.main import create_app
 
 
+@pytest.fixture(autouse=True)
+def _reset_openclaw_agents_cache() -> Iterator[None]:
+    """The agents-list cache is process-global; never let it leak across tests."""
+    from app.services.openclaw_service._agents import invalidate_agents_cache
+
+    invalidate_agents_cache()
+    yield
+    invalidate_agents_cache()
+
+
 @pytest.fixture()
 def client(tmp_path: Path) -> Iterator[TestClient]:
     settings = Settings(data_dir=tmp_path, environment="test")

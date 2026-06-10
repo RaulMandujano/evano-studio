@@ -15,8 +15,8 @@ import { TeamRunner } from "./TeamRunner";
 type Mode = "view" | "create" | "edit";
 
 export function TeamsView() {
-  const teamsRes = useBackendResource<Team[]>(backendApi.getTeams);
-  const agentsRes = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents);
+  const teamsRes = useBackendResource<Team[]>(backendApi.getTeams, "teams");
+  const agentsRes = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents, "oc-agents");
   const navigate = useNavigate();
   const run = useSyncExternalStore(teamsStore.subscribe, teamsStore.getSnapshot);
 

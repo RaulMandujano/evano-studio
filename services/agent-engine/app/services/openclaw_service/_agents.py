@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import threading
 import time
 from pathlib import Path
 
@@ -11,9 +12,35 @@ from . import config, metadata, process
 
 logger = logging.getLogger("evano.agent_engine.openclaw")
 
+# The OpenClaw CLI takes ~2s to boot Node for every call, and nearly every tab
+# needs the agent roster. Cache the parsed list briefly; anything that changes
+# the roster (create/delete, AFM moves) calls invalidate_agents_cache().
+_AGENTS_CACHE_TTL = 15.0
+_agents_cache: dict = {"at": 0.0, "data": None}
+_agents_cache_lock = threading.Lock()
+
+
+def invalidate_agents_cache() -> None:
+    with _agents_cache_lock:
+        _agents_cache["at"] = 0.0
+        _agents_cache["data"] = None
+
 
 class AgentsMixin:
     def list_agents(self) -> dict:
+        with _agents_cache_lock:
+            fresh = _agents_cache["data"] is not None and (time.monotonic() - _agents_cache["at"]) < _AGENTS_CACHE_TTL
+            if fresh:
+                cached = _agents_cache["data"]
+                return {**cached, "agents": list(cached["agents"])}
+        result = self._list_agents_uncached()
+        if result.get("ok"):
+            with _agents_cache_lock:
+                _agents_cache["at"] = time.monotonic()
+                _agents_cache["data"] = result
+        return {**result, "agents": list(result["agents"])}
+
+    def _list_agents_uncached(self) -> dict:
         if process._which("openclaw") is None:
             return {"ok": False, "message": "Install OpenClaw first.", "agents": []}
         code, out, err = process._run(["openclaw", "agents", "list", "--json"], timeout=30)
@@ -81,6 +108,7 @@ class AgentsMixin:
         ident += ["--json"]
         process._run(ident, timeout=30)
 
+        invalidate_agents_cache()
         logger.info("openclaw agents add id=%s model=%s ok=True", slug, model)
         return {
             "ok": True,
@@ -99,6 +127,8 @@ class AgentsMixin:
             return {"ok": False, "message": "The default agent can't be deleted."}
         code, out, err = process._run(["openclaw", "agents", "delete", aid, "--force", "--json"], timeout=60)
         ok = code == 0
+        if ok:
+            invalidate_agents_cache()
         logger.info("openclaw agents delete id=%s ok=%s", aid, ok)
         return {"ok": ok, "message": "Agent deleted." if ok else (err or out or "Couldn't delete.")[-400:]}
 
@@ -485,18 +515,11 @@ class AgentsMixin:
                 pass
 
     def _agent_workspace(self, agent_id: str) -> Path | None:
-        """Resolve an agent's workspace dir from OpenClaw's own agent list."""
+        """Resolve an agent's workspace dir (via the cached agent list)."""
         aid = (agent_id or "").strip()
         if not aid:
             return None
-        code, out, _ = process._run(["openclaw", "agents", "list", "--json"], timeout=30)
-        if code != 0 or not out:
-            return None
-        try:
-            data = json.loads(out)
-        except Exception:  # noqa: BLE001
-            return None
-        for a in data if isinstance(data, list) else []:
+        for a in self.list_agents().get("agents") or []:
             if a.get("id") == aid and a.get("workspace"):
                 return Path(a["workspace"])
         return None

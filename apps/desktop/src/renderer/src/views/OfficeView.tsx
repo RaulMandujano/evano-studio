@@ -19,8 +19,8 @@ import { useNavigate } from "../navigation-context";
 
 export function OfficeView() {
   const navigate = useNavigate();
-  const openclawRes = useBackendResource(backendApi.getOpenClawAgents);
-  const builtinRes = useBackendResource(backendApi.getAgents);
+  const openclawRes = useBackendResource(backendApi.getOpenClawAgents, "oc-agents");
+  const builtinRes = useBackendResource(backendApi.getAgents, "builtin-agents");
   const { state, snapshot } = useOfficeActivity();
 
   if (state === "offline") {

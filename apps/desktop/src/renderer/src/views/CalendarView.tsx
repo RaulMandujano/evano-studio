@@ -23,7 +23,7 @@ type PanelMode = "idle" | "create" | "edit";
 
 export function CalendarView() {
   const eventsRes = useBackendResource<CalendarEventsResponse>(backendApi.getCalendarEvents);
-  const agentsRes = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents);
+  const agentsRes = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents, "oc-agents");
 
   const [cursor, setCursor] = useState<Date>(() => new Date());
   const [viewMode, setViewMode] = useState<ViewMode>("month");

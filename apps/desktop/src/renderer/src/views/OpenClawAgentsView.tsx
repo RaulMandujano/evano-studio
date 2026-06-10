@@ -45,7 +45,7 @@ const TEMPLATES: Template[] = [
  * Evano writes it as a real OpenClaw agent (its own workspace + model + mission).
  */
 export function OpenClawAgentsView() {
-  const res = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents);
+  const res = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents, "oc-agents");
   const navigate = useNavigate();
 
   const [name, setName] = useState("");

@@ -18,7 +18,7 @@ import type { AfmStatus } from "../lib/api/types";
 
 export function AfmView() {
   const navigate = useNavigate();
-  const res = useBackendResource<AfmStatus>(backendApi.getAfmStatus);
+  const res = useBackendResource<AfmStatus>(backendApi.getAfmStatus, "afm-status");
 
   const [customRoot, setCustomRoot] = useState<string | null>(null);
   const [useDefault, setUseDefault] = useState(true);

@@ -12,8 +12,8 @@ import type {
 } from "../lib/api/types";
 
 export function KnowledgeBaseView() {
-  const statusRes = useBackendResource<KnowledgeStatus>(backendApi.getKnowledgeStatus);
-  const docsRes = useBackendResource<KnowledgeDocument[]>(backendApi.getKnowledgeDocuments);
+  const statusRes = useBackendResource<KnowledgeStatus>(backendApi.getKnowledgeStatus, "kb-status");
+  const docsRes = useBackendResource<KnowledgeDocument[]>(backendApi.getKnowledgeDocuments, "kb-docs");
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);

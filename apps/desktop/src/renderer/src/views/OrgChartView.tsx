@@ -109,7 +109,7 @@ function OrgNode({
 
 export function OrgChartView() {
   const navigate = useNavigate();
-  const res = useBackendResource<OrgChartResponse>(backendApi.getOrgChart);
+  const res = useBackendResource<OrgChartResponse>(backendApi.getOrgChart, "org-chart");
 
   const saved = useMemo(() => toParentMap(res.data), [res.data]);
   const [draft, setDraft] = useState<Record<string, string> | null>(null);

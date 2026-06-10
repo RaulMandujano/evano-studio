@@ -107,7 +107,7 @@ function Check({
  * AI assistant without ever touching a terminal.
  */
 export function OpenClawView() {
-  const statusRes = useBackendResource<OpenClawStatus>(backendApi.getOpenClawStatus);
+  const statusRes = useBackendResource<OpenClawStatus>(backendApi.getOpenClawStatus, "oc-status");
   const navigate = useNavigate();
   const s = statusRes.data;
 

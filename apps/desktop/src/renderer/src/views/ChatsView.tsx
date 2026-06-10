@@ -68,7 +68,7 @@ function ChatRow({ agent, session, active, onOpen }: {
 
 export function ChatsView() {
   const navigate = useNavigate();
-  const res = useBackendResource<AllChatsResponse>(backendApi.getAllChats);
+  const res = useBackendResource<AllChatsResponse>(backendApi.getAllChats, "chats");
 
   const [selected, setSelected] = useState<Selected | null>(null);
   const [messages, setMessages] = useState<UiMsg[]>([]);

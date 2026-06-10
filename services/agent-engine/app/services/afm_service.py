@@ -187,6 +187,10 @@ class AFMService:
                 skipped.append(f"{name} ({exc})")
 
         config_ok = self._update_config_workspaces(new_paths)
+        # Workspaces moved — the cached roster is stale now.
+        from .openclaw_service._agents import invalidate_agents_cache
+
+        invalidate_agents_cache()
         if gateway_was_running:
             self._oc.gateway_start()
 

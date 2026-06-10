@@ -14,7 +14,7 @@ type Mode = "idle" | "create" | "edit";
 
 export function RoutinesView() {
   const routinesRes = useBackendResource<Routine[]>(backendApi.getRoutines);
-  const agentsRes = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents);
+  const agentsRes = useBackendResource<OpenClawAgentsResponse>(backendApi.getOpenClawAgents, "oc-agents");
 
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [mode, setMode] = useState<Mode>("idle");

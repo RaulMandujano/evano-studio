@@ -10,8 +10,8 @@ import { formatDateTime } from "../lib/routines";
 import type { Agent, ComfyUIStatus, ImageGeneration } from "../lib/api/types";
 
 export function ImagesView() {
-  const statusRes = useBackendResource<ComfyUIStatus>(backendApi.getComfyUIStatus);
-  const imagesRes = useBackendResource<ImageGeneration[]>(backendApi.getImages);
+  const statusRes = useBackendResource<ComfyUIStatus>(backendApi.getComfyUIStatus, "comfyui-status");
+  const imagesRes = useBackendResource<ImageGeneration[]>(backendApi.getImages, "images");
   const agentsRes = useBackendResource<Agent[]>(backendApi.getAgents);
 
   const status = statusRes.data;

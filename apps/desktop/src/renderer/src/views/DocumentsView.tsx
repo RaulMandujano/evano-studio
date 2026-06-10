@@ -30,8 +30,8 @@ interface PreviewState {
 }
 
 export function DocumentsView() {
-  const agentDocsRes = useBackendResource<AgentDocumentsResponse>(backendApi.getAgentDocuments);
-  const docsRes = useBackendResource<DocumentInfo[]>(backendApi.getDocuments);
+  const agentDocsRes = useBackendResource<AgentDocumentsResponse>(backendApi.getAgentDocuments, "agent-docs");
+  const docsRes = useBackendResource<DocumentInfo[]>(backendApi.getDocuments, "evano-docs");
   const documents = docsRes.data ?? [];
 
   const [error, setError] = useState<string | null>(null);
