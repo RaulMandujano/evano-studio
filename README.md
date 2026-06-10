@@ -4,7 +4,7 @@
 
 **Status:** 🚧 **Alpha** — the core features are built and run locally from source, but the project is **not production-ready**: there's no signed installer yet, and you currently run it from source. Expect rough edges. See the [roadmap](docs/ROADMAP.md).
 
-**License:** [MIT](LICENSE) · **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md) · **Security:** [SECURITY.md](SECURITY.md)
+**License:** [AGPL-3.0](LICENSE) · **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md) · **Security:** [SECURITY.md](SECURITY.md)
 
 ---
 
@@ -190,5 +190,7 @@ local-first security model is documented in [docs/SECURITY.md](docs/SECURITY.md)
 
 ## License
 
-Evano Studio is open source under the **[MIT License](LICENSE)**. By contributing,
-you agree your contributions are licensed under MIT.
+Evano Studio is open source under the **[GNU AGPL-3.0 License](LICENSE)**. By
+contributing, you agree your contributions are licensed under AGPL-3.0. In short:
+you can use, study, modify, and share this software freely — but if you offer a
+modified version as a service, you must share your changes under the same license.

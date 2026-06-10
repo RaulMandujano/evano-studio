@@ -64,4 +64,4 @@ Use the issue templates (Bug report / Feature request). For security issues, see
 ## License
 
 By contributing, you agree your contributions are licensed under the project's
-**[MIT License](LICENSE)**.
+**[GNU AGPL-3.0 License](LICENSE)**.

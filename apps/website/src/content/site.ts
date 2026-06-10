@@ -147,7 +147,7 @@ export const faqs: Faq[] = [
   {
     question: "Is it open source?",
     answer:
-      "Yes. Evano Studio is being built as an open-source project. The license will be finalized before the first public release.",
+      "Yes. Evano Studio is licensed under the GNU AGPL-3.0: you can use, study, modify, and share it freely. If you run a modified version as a service for others, you must share your changes under the same license — that keeps the project free for everyone.",
   },
 ];
 

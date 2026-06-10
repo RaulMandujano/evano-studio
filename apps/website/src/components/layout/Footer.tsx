@@ -68,7 +68,7 @@ export function Footer() {
 
         <div className="footer-bottom">
           <span>
-            © {year} {siteConfig.name}. Released under the MIT license.
+            © {year} {siteConfig.name}. Released under the GNU AGPL-3.0 license.
           </span>
           <span>Status: {siteConfig.status} — not production-ready.</span>
         </div>

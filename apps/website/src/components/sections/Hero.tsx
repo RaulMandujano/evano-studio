@@ -89,7 +89,7 @@ export function Hero() {
         </div>
 
         <p className="hero-platforms">
-          Runs on macOS (Apple Silicon &amp; Intel) and Windows 10/11 · Open source (MIT)
+          Runs on macOS (Apple Silicon &amp; Intel) and Windows 10/11 · Open source (AGPL-3.0)
         </p>
 
         <AppMockup />

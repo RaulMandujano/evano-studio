@@ -51,7 +51,7 @@ evano-studio/
 ├── pnpm-workspace.yaml     # Workspace globs (apps/*, packages/*)
 ├── .gitignore
 ├── .editorconfig
-├── LICENSE                # MIT
+├── LICENSE                # GNU AGPL-3.0
 └── README.md
 ```
 

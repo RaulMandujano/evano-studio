@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "Evano Studio — create local AI agents for your business without paid APIs, cloud lock-in, or the terminal. Local-first, privacy-first, open source.",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=20"

@@ -3,7 +3,7 @@ import { Section, SectionHead } from "@/components/ui/Section";
 const points = [
   { big: "$0", text: "No API keys, no subscriptions, no metered usage. Ever." },
   { big: "100% local", text: "Models, chats, documents, and images live on your machine." },
-  { big: "Open source", text: "MIT licensed — read it, fork it, improve it." },
+  { big: "Open source", text: "AGPL-3.0 licensed — read it, fork it, improve it." },
   { big: "Mac + Windows", text: "One app, both platforms, the same free experience." },
 ];
 
