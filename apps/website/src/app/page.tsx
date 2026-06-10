@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
+import { FreeByDefault } from "@/components/sections/FreeByDefault";
 import { Features } from "@/components/sections/Features";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { ForSmallBusinesses } from "@/components/sections/ForSmallBusinesses";
@@ -15,6 +16,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <FreeByDefault />
       <Features />
       <HowItWorks />
       <ForSmallBusinesses />

@@ -6,17 +6,17 @@ export function DownloadCta() {
   return (
     <Section id="download-cta">
       <div className="cta-band">
-        <h2>Ready when you are</h2>
+        <h2>Hire your first AI employee today</h2>
         <p>
-          Evano Studio is in early alpha and not yet available to download. Follow
-          the project to know when the first release lands.
+          Free forever, running on your own Mac or Windows PC. Set up in minutes —
+          the app guides you through everything.
         </p>
         <div className="cta-actions">
-          <Link className="btn btn--primary" href="/download">
-            Download details
+          <Link className="btn btn--primary btn--lg" href="/download">
+             Download for macOS
           </Link>
-          <Link className="btn btn--secondary" href="/roadmap">
-            See the roadmap
+          <Link className="btn btn--secondary btn--lg" href="/download">
+            ⊞ Download for Windows
           </Link>
         </div>
       </div>

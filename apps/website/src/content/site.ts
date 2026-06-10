@@ -8,23 +8,29 @@
 
 export const siteConfig = {
   name: "Evano Studio",
-  tagline: "Local AI agents without the terminal",
+  tagline: "Your own AI team — 100% free, in one app",
   description:
-    "Evano Studio is a free, open-source, local-first desktop app for creating and managing local AI agents for your business — without paid APIs, cloud lock-in, or the terminal.",
+    "Evano Studio is a free, open-source desktop app for building AI agents that work for you — they chat, form teams, follow an org chart, and report to you on Discord. Everything runs locally on your Mac or Windows PC. No API keys, no subscriptions.",
   url: "https://evanostudio.com",
   /** The project is early-stage. This is shown honestly across the site. */
   status: "Alpha",
 
   /**
-   * Placeholder links. These are intentionally not real downloads/repos yet.
-   * Replace before public launch. See docs/WEBSITE.md.
+   * Set `github` to the real repository URL to activate the GitHub buttons and
+   * the release download links across the whole site (one line, everything
+   * lights up). Until then the site honestly offers "build from source".
    */
   links: {
-    github: "#", // TODO: real GitHub URL before launch
-    download: "#", // TODO: real release/download before launch (none exists yet)
+    github: "#", // TODO: set to the real GitHub URL after the first push
     docs: "/docs",
   },
 } as const;
+
+/** True once the GitHub link is real — drives download buttons site-wide. */
+export const hasRepo = (siteConfig.links.github as string) !== "#";
+
+/** GitHub releases page (the download source for macOS/Windows builds). */
+export const releasesUrl = hasRepo ? `${siteConfig.links.github}/releases/latest` : "#";
 
 export const navLinks = [
   { href: "/", label: "Home" },
@@ -43,39 +49,57 @@ export type Feature = {
 export const features: Feature[] = [
   {
     icon: "🤖",
-    title: "Local AI agents",
+    title: "Create AI employees",
     description:
-      "Create AI agents with a role, a local model, and explicit, deny-by-default permissions and tools. They run on your machine, not in the cloud.",
+      "Spin up agents from templates — give them a name, an emoji, and a mission. They run on free local models (Gemma via Ollama). No code, no terminal.",
   },
   {
-    icon: "💬",
-    title: "Agent chat",
+    icon: "🤝",
+    title: "Teams that hand off work",
     description:
-      "Talk to your agents through a clean desktop interface, powered entirely by local models running in Ollama.",
+      "Chain agents into workflows: one researches, the next writes, the next reviews — even passing a working file from agent to agent.",
+  },
+  {
+    icon: "🏛️",
+    title: "A real org chart",
+    description:
+      "Give agents managers. Ask the boss for something big and it delegates to its team — enforced as real permissions, not a drawing.",
+  },
+  {
+    icon: "🏢",
+    title: "Watch them work",
+    description:
+      "The Office view shows your agents live: at their desk when they're busy, in the break room when they're idle.",
+  },
+  {
+    icon: "🟣",
+    title: "Your team on Discord",
+    description:
+      "Connect each agent as its own Discord bot with a guided flow — then manage your whole AI team from your phone.",
   },
   {
     icon: "📚",
-    title: "Knowledge base (RAG)",
+    title: "They learn your business",
     description:
-      "Import your own .txt/.md files into a local ChromaDB knowledge base with local embeddings, and let agents answer from them.",
+      "Import your documents into a local knowledge base (ChromaDB). Agents answer from them in the app and on Discord.",
   },
   {
-    icon: "📄",
-    title: "Documents & safe tools",
+    icon: "🗂️",
+    title: "Tidy files (AFM)",
     description:
-      "Agents create local documents and use a small set of approved, workspace-bound tools — no shell, no internet, no arbitrary file access.",
+      "Agent File Management gives every agent a folder you choose — everything they create lands there, organized and easy to back up.",
   },
   {
     icon: "🎨",
-    title: "Image generation",
+    title: "Local image generation",
     description:
-      "Agents help craft image prompts; generate images locally through your own ComfyUI when configured. No paid image APIs.",
+      "Agents craft prompts and generate images through a local ComfyUI — on your GPU, with no paid image APIs.",
   },
   {
     icon: "🗓️",
     title: "Routines & calendar",
     description:
-      "Schedule agent tasks (manual, once, daily, weekly) and manage them on a visual calendar. Runs only while the app is open.",
+      "Schedule a single agent or a whole team workflow (once, daily, weekly) and manage everything on a visual calendar.",
   },
 ];
 

@@ -3,31 +3,46 @@ import Link from "next/link";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Badge } from "@/components/ui/Badge";
 import { pageMetadata } from "@/lib/metadata";
-import { siteConfig } from "@/content/site";
+import { hasRepo, releasesUrl, siteConfig } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Download",
   description:
-    "Evano Studio is in early alpha. There is no public download yet. Here is what you will need and how to follow progress.",
+    "Download Evano Studio for macOS and Windows — free, open-source, local AI agents in one app.",
   path: "/download",
 });
 
 const prerequisites = [
   {
     title: "Your own computer",
-    text: "Local AI runs on your hardware. More RAM and a better GPU/CPU let you run larger, faster models.",
+    text: "Local AI runs on your hardware. 16 GB of RAM is a comfortable starting point; more lets you run larger, faster models.",
   },
   {
-    title: "Ollama",
-    text: "The free local AI runtime. You install it yourself — Evano Studio never installs software silently.",
+    title: "Ollama (free)",
+    text: "The local AI runtime. A normal app install — Evano Studio guides you to it and never installs software silently.",
   },
   {
-    title: "A local model",
-    text: "Pull at least one model through Ollama. We recommend Gemma 4 when available; Qwen, Llama, Mistral, and DeepSeek also work.",
+    title: "A local model (free)",
+    text: "Pulled through Ollama with one click from inside the app. We recommend Gemma 4; Qwen, Llama, Mistral, and DeepSeek also work.",
   },
   {
-    title: "ComfyUI (optional)",
-    text: "Only needed for local image generation. Everything else works without it.",
+    title: "ComfyUI (optional, free)",
+    text: "Only for local image generation. Everything else works without it.",
+  },
+];
+
+const platforms = [
+  {
+    icon: "",
+    name: "macOS",
+    meta: "Apple Silicon & Intel · macOS 13+",
+    primary: true,
+  },
+  {
+    icon: "⊞",
+    name: "Windows",
+    meta: "Windows 10 / 11 · 64-bit",
+    primary: false,
   },
 ];
 
@@ -35,60 +50,58 @@ export default function DownloadPage() {
   return (
     <>
       <div className="container page-header">
-        <Badge variant="alpha" dot>
-          Alpha — no public download yet
-        </Badge>
+        <Badge variant="free">100% free — no account needed</Badge>
         <h1 className="page-title">Download Evano Studio</h1>
         <p className="page-lead">
-          Evano Studio is still in active development. We are not distributing a
-          build yet, and we will not post a download link until there is a real,
-          installable release.
+          One app for macOS and Windows. Your AI team runs locally — nothing to
+          pay, nothing to sign up for.
         </p>
       </div>
 
       <Section flush>
-        <div className="callout" style={{ maxWidth: 760 }}>
-          <strong>No download available yet.</strong> macOS will be the first
-          supported platform. This page will be updated with verified
-          instructions when the first alpha is ready — see the{" "}
-          <Link href="/roadmap">roadmap</Link>.
+        <div className="dl-grid">
+          {platforms.map((p) => (
+            <article key={p.name} className="dl-card">
+              <span className="dl-icon" aria-hidden="true">{p.icon}</span>
+              <h3>Evano Studio for {p.name}</h3>
+              <span className="dl-meta">{p.meta}</span>
+              {hasRepo ? (
+                <a
+                  className={`btn ${p.primary ? "btn--primary" : "btn--secondary"} btn--lg`}
+                  href={releasesUrl}
+                  rel="noopener noreferrer"
+                >
+                  Download latest alpha
+                </a>
+              ) : (
+                <span className="btn btn--secondary btn--disabled" aria-disabled="true">
+                  First alpha build coming soon
+                </span>
+              )}
+            </article>
+          ))}
         </div>
 
-        <div className="grid grid--3" style={{ marginTop: 24 }}>
-          <article className="card">
-            <h3 className="card-title">macOS</h3>
-            <p className="card-text">First supported platform.</p>
-            <span className="btn btn--primary btn--disabled" aria-disabled="true">
-              Coming soon
-            </span>
-          </article>
-          <article className="card">
-            <h3 className="card-title">Windows</h3>
-            <p className="card-text">Planned after macOS.</p>
-            <span className="btn btn--secondary btn--disabled" aria-disabled="true">
-              Later
-            </span>
-          </article>
-          <article className="card">
-            <h3 className="card-title">Linux</h3>
-            <p className="card-text">Planned after Windows.</p>
-            <span className="btn btn--secondary btn--disabled" aria-disabled="true">
-              Later
-            </span>
-          </article>
+        <div className="callout" style={{ maxWidth: 760, marginTop: 24 }}>
+          <strong>Alpha honesty:</strong> early builds are unsigned, so your OS
+          may ask you to allow the app the first time (right-click → Open on
+          macOS, “More info → Run anyway” on Windows). Until the first packaged
+          release lands you can{" "}
+          <Link href="/docs/getting-started">run it from source</Link> — it takes
+          about five minutes.
         </div>
 
         <div className="cta-actions" style={{ justifyContent: "flex-start", marginTop: 24 }}>
           <a
             className="btn btn--secondary"
             href={siteConfig.links.github}
-            aria-disabled={siteConfig.links.github === "#"}
+            aria-disabled={!hasRepo}
             rel="noopener noreferrer"
           >
-            View on GitHub
+            ★ Star on GitHub
           </a>
           <Link className="btn btn--ghost" href="/docs/getting-started">
-            Read Getting started
+            Run from source (free, ~5 min)
           </Link>
         </div>
       </Section>
@@ -97,7 +110,7 @@ export default function DownloadPage() {
         <SectionHead
           eyebrow="Before you start"
           title="What you'll need locally"
-          subtitle="Everything here is free. The only real cost is your own hardware."
+          subtitle="Everything on this list is free. The only thing you bring is your own hardware."
         />
         <div className="grid grid--2">
           {prerequisites.map((p) => (
