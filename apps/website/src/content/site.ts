@@ -142,7 +142,7 @@ export const faqs: Faq[] = [
   {
     question: "Is it production-ready?",
     answer:
-      "No. Evano Studio is in early alpha and under active development. There is no public download yet. Expect rough edges and changes.",
+      "Not yet — Evano Studio is in early alpha and under active development. Alpha installers for macOS and Windows are available, but they're unsigned and rough edges are expected.",
   },
   {
     question: "Is it open source?",
