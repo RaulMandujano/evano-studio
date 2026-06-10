@@ -43,7 +43,8 @@ function backendUrl(): string {
 /** Path to the frozen backend bundled inside a packaged build, if present. */
 function bundledBackendPath(): string | null {
   if (!app.isPackaged) return null; // dev uses a manually-run / env backend
-  const exe = join(process.resourcesPath, "evano-backend", "evano-backend");
+  const binary = process.platform === "win32" ? "evano-backend.exe" : "evano-backend";
+  const exe = join(process.resourcesPath, "evano-backend", binary);
   return existsSync(exe) ? exe : null;
 }
 

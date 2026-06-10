@@ -1,0 +1,67 @@
+name: Release installers
+
+# Builds the real, downloadable installers when you push a version tag:
+#   git tag v0.1.0 && git push origin v0.1.0
+# macOS (.dmg) builds on a macOS runner; Windows (.exe) on a Windows runner —
+# the frozen Python backend can only be built on its own platform.
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write # create the GitHub Release + upload assets
+
+jobs:
+  build:
+    name: Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            target: mac
+            artifact: "apps/desktop/release/*.dmg"
+          - os: windows-latest
+            target: win
+            artifact: "apps/desktop/release/*.exe"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Freeze the backend (PyInstaller)
+        working-directory: services/agent-engine
+        run: |
+          pip install -e ".[build]"
+          pyinstaller --noconfirm --distpath dist-backend --workpath build-backend evano-backend.spec
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install JS deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Package the desktop app
+        working-directory: apps/desktop
+        run: pnpm run package:${{ matrix.target }}
+        env:
+          # Unsigned alpha builds — do not fail looking for signing identities.
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+
+      - name: Upload to the GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.artifact }}
+          draft: false
+          generate_release_notes: true
