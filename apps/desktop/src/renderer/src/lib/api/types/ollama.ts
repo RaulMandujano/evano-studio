@@ -36,6 +36,9 @@ export interface OllamaModelsResponse {
   message: string | null;
 }
 
+/** How well a model fits THIS machine. */
+export type ModelFit = "great" | "good" | "tight" | "too_big" | "unknown";
+
 /** A curated model the user can install (from `GET /ollama/models/recommended`). */
 export interface RecommendedModel {
   model: string;
@@ -45,8 +48,21 @@ export interface RecommendedModel {
   family: string | null;
   size_estimate: string | null;
   min_ram: string | null;
+  min_ram_gb: number | null;
+  size_gb: number | null;
   recommended: boolean;
   installed: boolean;
+  fit: ModelFit;
+  fit_reason: string;
+}
+
+/** Best-effort hardware probe of this machine. */
+export interface HardwareInfo {
+  platform: string;
+  ram_gb: number;
+  cpu_cores: number;
+  chip: string | null;
+  unified_memory: boolean;
 }
 
 /** Response from `GET /ollama/models/recommended`. */
@@ -55,6 +71,8 @@ export interface RecommendedModelsResponse {
   recommended_model: string;
   models: RecommendedModel[];
   message: string | null;
+  hardware: HardwareInfo | null;
+  best_pick: string | null;
 }
 
 export type PullState = "idle" | "pending" | "downloading" | "success" | "error";

@@ -292,15 +292,33 @@ class OllamaService:
                     return True
             return False
 
-        models = [
-            RecommendedModel(**entry, installed=reachable and is_installed(entry["model"]))
-            for entry in RECOMMENDED_MODELS
-        ]
+        # Cookbook-style scoring: read this machine's hardware and score every
+        # curated model so the user instantly sees what actually fits.
+        from ..hardware_service import fit_for, probe_hardware
+
+        hardware = probe_hardware()
+        models = []
+        for entry in RECOMMENDED_MODELS:
+            fit, fit_reason = fit_for(entry.get("min_ram_gb"), hardware["ram_gb"])
+            models.append(
+                RecommendedModel(
+                    **entry,
+                    installed=reachable and is_installed(entry["model"]),
+                    fit=fit,
+                    fit_reason=fit_reason,
+                )
+            )
+        # Best fits first (catalog order breaks ties — it's roughly by quality).
+        fit_rank = {"great": 0, "good": 1, "tight": 2, "unknown": 3, "too_big": 4}
+        models.sort(key=lambda m: fit_rank.get(m.fit, 3))
+        best_pick = next((m.model for m in models if m.fit in ("great", "good")), None)
         return RecommendedModelsResponse(
             reachable=reachable,
             recommended_model=self._recommended,
             models=models,
             message=message,
+            hardware=hardware,
+            best_pick=best_pick,
         )
 
     def start_pull(self, model: str) -> PullStatusResponse:

@@ -6,7 +6,32 @@ import { Button } from "../components/ui/Button";
 import { useOllamaModels, useRecommendedModels } from "../hooks/useOllama";
 import { useModelPulls } from "../hooks/useModelPulls";
 import { formatBytes } from "../lib/format";
-import type { OllamaModel, PullStatus, RecommendedModel } from "../lib/api/types";
+import type { HardwareInfo, ModelFit, OllamaModel, PullStatus, RecommendedModel } from "../lib/api/types";
+
+/** Cookbook-style fit labels: how well a model fits THIS machine. */
+const FIT_META: Record<ModelFit, { label: string; tone: "ok" | "info" | "pending" | "danger" | "neutral" }> = {
+  great: { label: "✓ Runs great here", tone: "ok" },
+  good: { label: "✓ Runs well here", tone: "info" },
+  tight: { label: "⚠ Tight fit", tone: "pending" },
+  too_big: { label: "✗ Too big for this machine", tone: "danger" },
+  unknown: { label: "Fit unknown", tone: "neutral" },
+};
+
+function HardwareCard({ hw }: { hw: HardwareInfo }) {
+  return (
+    <div className="hw-card">
+      <span className="hw-icon" aria-hidden="true">💻</span>
+      <div className="hw-main">
+        <span className="hw-title">Your machine</span>
+        <span className="hw-meta">
+          {hw.chip ?? hw.platform} · {hw.ram_gb.toFixed(0)} GB {hw.unified_memory ? "unified memory" : "RAM"} ·{" "}
+          {hw.cpu_cores} cores
+        </span>
+      </div>
+      <span className="hw-note muted">Models below are scored for this hardware</span>
+    </div>
+  );
+}
 
 function InstalledRow({ model, recommended }: { model: OllamaModel; recommended: string }) {
   const isRecommended = model.name.split(":")[0].toLowerCase() === recommended.toLowerCase();
@@ -47,11 +72,13 @@ function RecommendedItem({
   reachable,
   pull,
   onInstall,
+  bestPick,
 }: {
   model: RecommendedModel;
   reachable: boolean;
   pull: PullStatus | undefined;
   onInstall: (model: string) => void;
+  bestPick: boolean;
 }) {
   const isPulling = pull?.state === "pending" || pull?.state === "downloading";
   const justInstalled = pull?.state === "success";
@@ -72,16 +99,23 @@ function RecommendedItem({
     );
   };
 
+  const fitMeta = FIT_META[model.fit] ?? FIT_META.unknown;
+
   return (
-    <Card className="rec-item">
+    <Card className={`rec-item ${bestPick ? "rec-item--best" : ""} ${model.fit === "too_big" ? "rec-item--dim" : ""}`}>
+      {bestPick ? <span className="rec-best-ribbon">⭐ Best for your machine</span> : null}
       <div className="rec-head">
         <div>
           <div className="rec-title">
             <span className="model-name">{model.name}</span>
             {model.recommended ? <Badge tone="info">Recommended</Badge> : null}
-            <Badge tone="neutral">{model.category}</Badge>
+            {model.category.toLowerCase() !== "recommended" ? (
+              <Badge tone="neutral">{model.category}</Badge>
+            ) : null}
+            <Badge tone={fitMeta.tone} dot>{fitMeta.label}</Badge>
           </div>
           <p className="rec-notes muted">{model.notes}</p>
+          <p className="rec-fit muted">{model.fit_reason}</p>
           <p className="rec-tag mono muted">{model.model}</p>
         </div>
         <div className="rec-action">{renderAction()}</div>
@@ -164,17 +198,17 @@ export function ModelsView() {
       <h2 className="section-label">Installed</h2>
       {installedBody()}
 
-      <h2 className="section-label">Recommended</h2>
+      <h2 className="section-label">Recommended for your machine</h2>
       <div className="callout-box">
         <strong>Heads up:</strong> models are large downloads (often 2–5 GB) and run in
-        memory. Make sure you have enough free disk space and RAM (8 GB+ recommended).
-        Downloads run in the background — you can keep using the app.
+        memory. Downloads run in the background — you can keep using the app.
       </div>
 
       {recommended.state === "checking" ? (
-        <p className="muted">Loading recommendations…</p>
+        <p className="muted">Scanning your hardware and loading recommendations…</p>
       ) : recommended.data ? (
         <>
+          {recommended.data.hardware ? <HardwareCard hw={recommended.data.hardware} /> : null}
           {!reachable ? (
             <p className="muted">
               Ollama isn&apos;t reachable, so installs are disabled. Start Ollama and refresh.
@@ -188,6 +222,7 @@ export function ModelsView() {
                 reachable={reachable}
                 pull={pulls[m.model]}
                 onInstall={start}
+                bestPick={m.model === recommended.data!.best_pick}
               />
             ))}
           </div>

@@ -70,17 +70,34 @@ class RecommendedModel(BaseModel):
     family: Optional[str] = None
     size_estimate: Optional[str] = None  # best-effort, e.g. "~4.1 GB"
     min_ram: Optional[str] = None  # best-effort, e.g. "8 GB"
+    min_ram_gb: Optional[float] = None  # numeric, drives fit scoring
+    size_gb: Optional[float] = None  # download size, numeric
     recommended: bool = False
     installed: bool = False
+    # How well it fits THIS machine: great | good | tight | too_big | unknown
+    fit: str = "unknown"
+    fit_reason: str = ""
+
+
+class HardwareInfo(BaseModel):
+    """What this machine can run (best-effort probe, never fails)."""
+
+    platform: str = ""
+    ram_gb: float = 0
+    cpu_cores: int = 0
+    chip: Optional[str] = None
+    unified_memory: bool = False
 
 
 class RecommendedModelsResponse(BaseModel):
-    """Curated recommendations plus which ones are already installed."""
+    """Curated recommendations scored against this machine's hardware."""
 
     reachable: bool
     recommended_model: str
     models: list[RecommendedModel] = Field(default_factory=list)
     message: Optional[str] = None
+    hardware: Optional[HardwareInfo] = None
+    best_pick: Optional[str] = None  # the model tag that fits this machine best
 
 
 class PullRequest(BaseModel):
