@@ -21,7 +21,7 @@ export const siteConfig = {
    * lights up). Until then the site honestly offers "build from source".
    */
   links: {
-    github: "#", // TODO: set to the real GitHub URL after the first push
+    github: "https://github.com/RaulMandujano/evano-studio",
     docs: "/docs",
   },
 } as const;
