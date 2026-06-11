@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
+import { downloadUrls, hasRepo } from "@/content/site";
 
 /** A tiny CSS-only recreation of the app's Office view — agents at work. */
 function AppMockup() {
@@ -80,16 +81,25 @@ export function Hero() {
         </p>
 
         <div className="hero-actions">
-          <Link className="btn btn--primary btn--lg" href="/download">
-             Download for macOS
-          </Link>
-          <Link className="btn btn--secondary btn--lg" href="/download">
-            ⊞ Download for Windows
-          </Link>
+          {hasRepo ? (
+            <>
+              <a className="btn btn--primary btn--lg" href={downloadUrls.mac} download>
+                 Download for macOS
+              </a>
+              <a className="btn btn--secondary btn--lg" href={downloadUrls.windows} download>
+                ⊞ Download for Windows
+              </a>
+            </>
+          ) : (
+            <Link className="btn btn--primary btn--lg" href="/download">
+              ⬇ Download
+            </Link>
+          )}
         </div>
 
         <p className="hero-platforms">
-          Runs on macOS (Apple Silicon &amp; Intel) and Windows 10/11 · Open source (AGPL-3.0)
+          macOS (Apple Silicon) · Windows 10/11 · Open source (AGPL-3.0) ·{" "}
+          <Link href="/download">all download options</Link>
         </p>
 
         <AppMockup />

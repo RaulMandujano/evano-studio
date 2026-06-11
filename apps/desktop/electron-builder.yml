@@ -31,6 +31,9 @@ extraResources:
 
 mac:
   category: public.app-category.productivity
+  # Stable, versionless artifact names so the website can deep-link to
+  # /releases/latest/download/<name> and the browser downloads instantly.
+  artifactName: Evano-Studio-mac-${arch}.${ext}
   target:
     - dmg
     - zip
@@ -42,8 +45,9 @@ mac:
 dmg:
   title: ${productName}
 
-# Prepared for a future Windows target (not built by default on macOS).
+# Built on a Windows runner by the release workflow.
 win:
+  artifactName: Evano-Studio-Setup.${ext}
   target:
     - nsis
   icon: build/icon.ico

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
+import { downloadUrls, hasRepo } from "@/content/site";
 
 /** Closing call-to-action band used on the home page. */
 export function DownloadCta() {
@@ -12,11 +13,22 @@ export function DownloadCta() {
           the app guides you through everything.
         </p>
         <div className="cta-actions">
-          <Link className="btn btn--primary btn--lg" href="/download">
-             Download for macOS
-          </Link>
-          <Link className="btn btn--secondary btn--lg" href="/download">
-            ⊞ Download for Windows
+          {hasRepo ? (
+            <>
+              <a className="btn btn--primary btn--lg" href={downloadUrls.mac} download>
+                 Download for macOS
+              </a>
+              <a className="btn btn--secondary btn--lg" href={downloadUrls.windows} download>
+                ⊞ Download for Windows
+              </a>
+            </>
+          ) : (
+            <Link className="btn btn--primary btn--lg" href="/download">
+              ⬇ Download
+            </Link>
+          )}
+          <Link className="btn btn--ghost" href="/download">
+            All options
           </Link>
         </div>
       </div>

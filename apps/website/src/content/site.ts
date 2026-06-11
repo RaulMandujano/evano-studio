@@ -32,6 +32,16 @@ export const hasRepo = (siteConfig.links.github as string) !== "#";
 /** GitHub releases page (the download source for macOS/Windows builds). */
 export const releasesUrl = hasRepo ? `${siteConfig.links.github}/releases/latest` : "#";
 
+/**
+ * Direct download links — clicking these starts the download immediately.
+ * GitHub's `/releases/latest/download/<asset>` always serves the newest
+ * release; the asset names are stable (set in apps/desktop/electron-builder.yml).
+ */
+export const downloadUrls = {
+  mac: hasRepo ? `${siteConfig.links.github}/releases/latest/download/Evano-Studio-mac-arm64.dmg` : "#",
+  windows: hasRepo ? `${siteConfig.links.github}/releases/latest/download/Evano-Studio-Setup.exe` : "#",
+} as const;
+
 export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/docs", label: "Docs" },

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Section, SectionHead } from "@/components/ui/Section";
 import { Badge } from "@/components/ui/Badge";
 import { pageMetadata } from "@/lib/metadata";
-import { hasRepo, releasesUrl, siteConfig } from "@/content/site";
+import { downloadUrls, hasRepo, releasesUrl, siteConfig } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Download",
@@ -35,13 +35,15 @@ const platforms = [
   {
     icon: "",
     name: "macOS",
-    meta: "Apple Silicon & Intel · macOS 13+",
+    meta: "Apple Silicon (M-series) · macOS 13+ · .dmg",
+    url: downloadUrls.mac,
     primary: true,
   },
   {
     icon: "⊞",
     name: "Windows",
-    meta: "Windows 10 / 11 · 64-bit",
+    meta: "Windows 10 / 11 · 64-bit · .exe installer",
+    url: downloadUrls.windows,
     primary: false,
   },
 ];
@@ -68,10 +70,10 @@ export default function DownloadPage() {
               {hasRepo ? (
                 <a
                   className={`btn ${p.primary ? "btn--primary" : "btn--secondary"} btn--lg`}
-                  href={releasesUrl}
-                  rel="noopener noreferrer"
+                  href={p.url}
+                  download
                 >
-                  Download latest alpha
+                  ⬇ Download for {p.name}
                 </a>
               ) : (
                 <span className="btn btn--secondary btn--disabled" aria-disabled="true">
@@ -99,6 +101,9 @@ export default function DownloadPage() {
             rel="noopener noreferrer"
           >
             ★ Star on GitHub
+          </a>
+          <a className="btn btn--ghost" href={releasesUrl} rel="noopener noreferrer">
+            All versions &amp; release notes
           </a>
           <Link className="btn btn--ghost" href="/docs/getting-started">
             Run from source (free, ~5 min)
