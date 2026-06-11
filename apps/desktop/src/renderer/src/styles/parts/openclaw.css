@@ -1086,3 +1086,44 @@
   background: var(--teal-soft);
   font-size: 13.5px;
 }
+
+/* ----- in-app WhatsApp QR pairing ----- */
+.wa-qr {
+  margin-top: 12px;
+  padding: 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent-strong);
+  background: var(--surface-2);
+}
+
+.wa-qr-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.wa-qr-head h4 {
+  font-size: 14.5px;
+}
+
+.wa-qr-code {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.wa-qr-code svg {
+  width: 280px;
+  height: 280px;
+  border-radius: 10px;
+  image-rendering: pixelated;
+}
+
+.wa-qr-steps {
+  margin: 12px auto 0;
+  max-width: 360px;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+}

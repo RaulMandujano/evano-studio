@@ -11,6 +11,7 @@ from ._bindings import BindingsMixin
 from ._channels import ChannelsMixin
 from ._documents import AgentDocumentsMixin
 from ._support import SupportMixin
+from ._whatsapp_login import WhatsAppLoginMixin
 from ._config_ops import ConfigMixin
 from ._gateway import GatewayMixin
 from ._install_ops import InstallMixin
@@ -27,5 +28,6 @@ class OpenClawService(
     BindingsMixin,
     AgentDocumentsMixin,
     SupportMixin,
+    WhatsAppLoginMixin,
 ):
     """Friendly front-end for OpenClaw: detect, install, configure, operate."""

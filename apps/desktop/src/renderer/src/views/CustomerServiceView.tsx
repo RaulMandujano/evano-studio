@@ -15,6 +15,7 @@ import { Button } from "../components/ui/Button";
 import { useBackendResource } from "../hooks/useBackendResource";
 import { backendApi } from "../lib/api/client";
 import { useNavigate } from "../navigation-context";
+import { WhatsAppQrPanel } from "../components/openclaw/WhatsAppQrPanel";
 import type { CustomerServiceStatus, KnowledgeStatus } from "../lib/api/types";
 
 const SUPPORT_AGENT_TEMPLATE = {
@@ -39,6 +40,7 @@ export function CustomerServiceView() {
   const [busy, setBusy] = useState<string | null>(null);
   const [note, setNote] = useState<string | null>(null);
   const [noteOk, setNoteOk] = useState(false);
+  const [showWaQr, setShowWaQr] = useState(false);
 
   const status = res.data;
   const kbDocs = kbRes.data?.document_count ?? 0;
@@ -203,6 +205,8 @@ export function CustomerServiceView() {
                   <span className="cs-channel-name">{c.name}</span>
                   {c.configured ? (
                     <Badge tone="ok" dot>Connected</Badge>
+                  ) : c.slug === "whatsapp" ? (
+                    <Button variant="primary" onClick={() => setShowWaQr(true)}>📱 Show QR</Button>
                   ) : c.connect === "login" ? (
                     <Button onClick={() => navigate("openclaw-dashboard")}>Scan QR in Dashboard</Button>
                   ) : (
@@ -211,9 +215,15 @@ export function CustomerServiceView() {
                 </div>
               ))}
             </div>
+            {showWaQr ? (
+              <WhatsAppQrPanel
+                onConnected={() => res.refresh()}
+                onClose={() => setShowWaQr(false)}
+              />
+            ) : null}
             <p className="form-hint">
-              WhatsApp pairs by scanning a QR (like WhatsApp Web) from the Dashboard. Telegram, Discord,
-              and Slack connect with a bot token from the Channels page.
+              WhatsApp pairs right here — scan the QR with your phone, like WhatsApp Web. Telegram,
+              Discord, and Slack connect with a bot token from the Channels page.
             </p>
           </Card>
 

@@ -21,6 +21,7 @@ from ..schemas.openclaw import (
     AllChatsResponse,
     AssignSupportRequest,
     CustomerServiceStatus,
+    WhatsAppLoginStatus,
     ConnectDiscordRequest,
     ChannelActionResult,
     ChannelsResponse,
@@ -191,6 +192,23 @@ def openclaw_agent_chat(
         if not outcome["ok"]:
             outcome["note"] = result.get("message") or ""
     return result
+
+
+@router.post("/whatsapp/login/start", response_model=WhatsAppLoginStatus, summary="Start WhatsApp QR pairing")
+def whatsapp_login_start(service: OpenClawService = Depends(get_openclaw_service)) -> dict:
+    """Run `openclaw channels login --channel whatsapp` in the background and
+    capture its live QR so the app can show it inline (like WhatsApp Web)."""
+    return service.whatsapp_login_start()
+
+
+@router.get("/whatsapp/login/status", response_model=WhatsAppLoginStatus, summary="WhatsApp pairing status")
+def whatsapp_login_status(service: OpenClawService = Depends(get_openclaw_service)) -> dict:
+    return service.whatsapp_login_status()
+
+
+@router.post("/whatsapp/login/cancel", response_model=WhatsAppLoginStatus, summary="Cancel WhatsApp pairing")
+def whatsapp_login_cancel(service: OpenClawService = Depends(get_openclaw_service)) -> dict:
+    return service.whatsapp_login_cancel()
 
 
 @router.get("/support/status", response_model=CustomerServiceStatus, summary="Customer-service setup status")

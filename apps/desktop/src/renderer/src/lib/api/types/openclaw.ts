@@ -307,3 +307,10 @@ export interface CustomerServiceStatus {
   channels: SupportChannel[];
   assignments: SupportAssignment[];
 }
+
+/** Response from the in-app WhatsApp pairing endpoints. */
+export interface WhatsAppLoginStatus {
+  state: "idle" | "starting" | "qr" | "connected" | "error" | "expired";
+  qr_svg: string | null;
+  message: string;
+}

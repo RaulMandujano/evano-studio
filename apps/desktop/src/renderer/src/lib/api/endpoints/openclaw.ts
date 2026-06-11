@@ -21,6 +21,7 @@ import type {
   AllChatsResponse,
   CustomerServiceStatus,
   SessionsResponse,
+  WhatsAppLoginStatus,
   SessionDetail,
   ClearSessionsResult,
   FileHandoffResult,
@@ -265,5 +266,26 @@ export function unassignSupportAgent(agentId: string, channel: string): Promise<
     method: "POST",
     body: { agent_id: agentId, channel },
     timeoutMs: 120_000,
+  });
+}
+
+/** `POST /openclaw/whatsapp/login/start` — begin QR pairing (in-app). */
+export function startWhatsAppLogin(): Promise<WhatsAppLoginStatus> {
+  return requestJson<WhatsAppLoginStatus>("/openclaw/whatsapp/login/start", {
+    method: "POST",
+    timeoutMs: 30_000,
+  });
+}
+
+/** `GET /openclaw/whatsapp/login/status` — current pairing state + live QR. */
+export function getWhatsAppLoginStatus(): Promise<WhatsAppLoginStatus> {
+  return requestJson<WhatsAppLoginStatus>("/openclaw/whatsapp/login/status", { timeoutMs: 15_000 });
+}
+
+/** `POST /openclaw/whatsapp/login/cancel` — stop the pairing attempt. */
+export function cancelWhatsAppLogin(): Promise<WhatsAppLoginStatus> {
+  return requestJson<WhatsAppLoginStatus>("/openclaw/whatsapp/login/cancel", {
+    method: "POST",
+    timeoutMs: 15_000,
   });
 }

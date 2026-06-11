@@ -165,6 +165,14 @@ class AgentChatResult(BaseModel):
     message: str = ""
 
 
+class WhatsAppLoginStatus(BaseModel):
+    """In-app WhatsApp pairing: the live QR rendered as SVG."""
+
+    state: str  # idle | starting | qr | connected | error | expired
+    qr_svg: Optional[str] = None
+    message: str = ""
+
+
 class SupportChannel(BaseModel):
     slug: str
     name: str
