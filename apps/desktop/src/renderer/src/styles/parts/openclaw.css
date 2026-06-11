@@ -970,3 +970,119 @@
   line-height: 1.5;
 }
 
+
+/* ----- Customer Service: guided setup ----- */
+.cs-live {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 16px;
+  margin-bottom: 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(45, 212, 191, 0.45);
+  background: linear-gradient(135deg, var(--teal-soft), transparent 65%), var(--surface);
+  font-size: 13.5px;
+}
+
+.cs-live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: office-pulse 1.4s infinite ease-in-out;
+}
+
+.cs-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cs-step-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.cs-step-head h3 {
+  font-size: 15.5px;
+}
+
+.cs-step-num {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-strong);
+}
+
+.cs-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cs-channel {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.cs-channel.is-on {
+  border-color: rgba(45, 212, 191, 0.45);
+}
+
+.cs-channel-icon {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.cs-channel-name {
+  font-weight: 600;
+  font-size: 13.5px;
+  margin-right: auto;
+}
+
+.cs-activate {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.cs-activate select {
+  min-width: 190px;
+}
+
+.cs-assignments {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-assignment {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 13px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(45, 212, 191, 0.35);
+  background: var(--teal-soft);
+  font-size: 13.5px;
+}

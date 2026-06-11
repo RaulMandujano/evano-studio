@@ -112,8 +112,10 @@ class BindingsMixin:
 
         # 3) Reload the gateway so the bot actually comes online.
         from ._agents import invalidate_agents_cache
+        from ._support import invalidate_bindings_cache
 
         invalidate_agents_cache()  # bindings count changed
+        invalidate_bindings_cache()
         restarted = self._restart_gateway_if_running()
         logger.info("openclaw discord connect agent=%s ok=True restarted=%s", aid, restarted)  # token never logged
         return {
@@ -143,8 +145,10 @@ class BindingsMixin:
             timeout=30,
         )
         from ._agents import invalidate_agents_cache
+        from ._support import invalidate_bindings_cache
 
         invalidate_agents_cache()  # bindings count changed
+        invalidate_bindings_cache()
         self._restart_gateway_if_running()
         logger.info("openclaw discord disconnect agent=%s ok=True", aid)
         return {"ok": True, "message": "Disconnected — the bot is no longer linked to this agent."}

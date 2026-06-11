@@ -10,6 +10,7 @@ import { OfficeView } from "./OfficeView";
 import { OrgChartView } from "./OrgChartView";
 import { ChatsView } from "./ChatsView";
 import { AfmView } from "./AfmView";
+import { CustomerServiceView } from "./CustomerServiceView";
 import { ChannelsView } from "./ChannelsView";
 import { DashboardView } from "./DashboardView";
 import { ModelsView } from "./ModelsView";
@@ -34,6 +35,7 @@ export const views: Record<ViewId, FC> = {
   "org-chart": OrgChartView,
   chats: ChatsView,
   afm: AfmView,
+  "customer-service": CustomerServiceView,
   "openclaw-dashboard": OpenClawDashboardView,
   channels: ChannelsView,
   dashboard: DashboardView,

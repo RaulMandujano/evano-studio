@@ -11,6 +11,7 @@ export type ViewId =
   | "openclaw"
   | "openclaw-agents"
   | "chats"
+  | "customer-service"
   | "teams"
   | "org-chart"
   | "office"
@@ -48,6 +49,7 @@ export const navGroups: NavGroup[] = [
       { id: "openclaw", label: "Get Started", icon: "🦞" },
       { id: "openclaw-agents", label: "Agents", icon: "🤖" },
       { id: "chats", label: "Chats", icon: "💬" },
+      { id: "customer-service", label: "Customer Service", icon: "🎧" },
       { id: "teams", label: "Teams", icon: "🤝" },
       { id: "org-chart", label: "Org Chart", icon: "🏛️" },
       { id: "office", label: "Office", icon: "🏢" },

@@ -165,6 +165,40 @@ class AgentChatResult(BaseModel):
     message: str = ""
 
 
+class SupportChannel(BaseModel):
+    slug: str
+    name: str
+    icon: str = "💬"
+    connect: str = "token"  # token (paste a bot token) | login (QR / in-app pairing)
+    configured: bool = False
+
+
+class SupportAssignment(BaseModel):
+    agent_id: str
+    channel: str
+    account_id: str = ""
+
+
+class SupportAgentLite(BaseModel):
+    id: str
+    name: str
+    emoji: str = ""
+
+
+class CustomerServiceStatus(BaseModel):
+    ok: bool
+    message: str = ""
+    gateway_running: bool = False
+    agents: list[SupportAgentLite] = []
+    channels: list[SupportChannel] = []
+    assignments: list[SupportAssignment] = []
+
+
+class AssignSupportRequest(BaseModel):
+    agent_id: str
+    channel: str
+
+
 class AgentWorkFile(BaseModel):
     name: str
     path: str  # relative to the agent's workspace

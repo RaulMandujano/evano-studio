@@ -275,3 +275,35 @@ export interface ClearSessionsResult {
   freed_bytes: number;
 }
 
+
+/** A customer-facing channel offered in the Customer Service setup. */
+export interface SupportChannel {
+  slug: string;
+  name: string;
+  icon: string;
+  connect: "token" | "login";
+  configured: boolean;
+}
+
+/** A live routing: this channel's messages go to this agent. */
+export interface SupportAssignment {
+  agent_id: string;
+  channel: string;
+  account_id: string;
+}
+
+export interface SupportAgentLite {
+  id: string;
+  name: string;
+  emoji: string;
+}
+
+/** Response from `GET /openclaw/support/status`. */
+export interface CustomerServiceStatus {
+  ok: boolean;
+  message: string;
+  gateway_running: boolean;
+  agents: SupportAgentLite[];
+  channels: SupportChannel[];
+  assignments: SupportAssignment[];
+}

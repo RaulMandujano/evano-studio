@@ -19,6 +19,7 @@ import type {
   AgentDocumentsResponse,
   AgentFilesResponse,
   AllChatsResponse,
+  CustomerServiceStatus,
   SessionsResponse,
   SessionDetail,
   ClearSessionsResult,
@@ -243,3 +244,26 @@ export function clearOpenClawSessions(id: string, olderThanDays?: number): Promi
 }
 
 /** `GET /settings` — all app settings. */
+
+/** `GET /openclaw/support/status` — everything the Customer Service tab needs. */
+export function getCustomerServiceStatus(): Promise<CustomerServiceStatus> {
+  return requestJson<CustomerServiceStatus>("/openclaw/support/status", { timeoutMs: 40_000 });
+}
+
+/** `POST /openclaw/support/assign` — route a channel's messages to an agent. */
+export function assignSupportAgent(agentId: string, channel: string): Promise<AgentActionResult> {
+  return requestJson<AgentActionResult>("/openclaw/support/assign", {
+    method: "POST",
+    body: { agent_id: agentId, channel },
+    timeoutMs: 120_000, // may restart the gateway
+  });
+}
+
+/** `POST /openclaw/support/unassign` — remove a channel routing. */
+export function unassignSupportAgent(agentId: string, channel: string): Promise<AgentActionResult> {
+  return requestJson<AgentActionResult>("/openclaw/support/unassign", {
+    method: "POST",
+    body: { agent_id: agentId, channel },
+    timeoutMs: 120_000,
+  });
+}

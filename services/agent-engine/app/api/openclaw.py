@@ -19,6 +19,8 @@ from ..schemas.openclaw import (
     AgentDocumentsResponse,
     AgentFilesResponse,
     AllChatsResponse,
+    AssignSupportRequest,
+    CustomerServiceStatus,
     ConnectDiscordRequest,
     ChannelActionResult,
     ChannelsResponse,
@@ -189,6 +191,31 @@ def openclaw_agent_chat(
         if not outcome["ok"]:
             outcome["note"] = result.get("message") or ""
     return result
+
+
+@router.get("/support/status", response_model=CustomerServiceStatus, summary="Customer-service setup status")
+def openclaw_support_status(service: OpenClawService = Depends(get_openclaw_service)) -> dict:
+    """Agents, customer channels (WhatsApp/Telegram/…), and current routing —
+    everything the Customer Service tab needs in one call."""
+    return service.customer_service_status()
+
+
+@router.post("/support/assign", response_model=AgentActionResult, summary="Route a channel to a support agent")
+def openclaw_support_assign(
+    payload: AssignSupportRequest,
+    service: OpenClawService = Depends(get_openclaw_service),
+) -> dict:
+    """Bind a customer channel to an agent so it answers every incoming message
+    (OpenClaw native routing) and reload the gateway."""
+    return service.assign_support_agent(agent_id=payload.agent_id, channel=payload.channel)
+
+
+@router.post("/support/unassign", response_model=AgentActionResult, summary="Remove a channel routing")
+def openclaw_support_unassign(
+    payload: AssignSupportRequest,
+    service: OpenClawService = Depends(get_openclaw_service),
+) -> dict:
+    return service.unassign_support_agent(agent_id=payload.agent_id, channel=payload.channel)
 
 
 @router.get("/documents", response_model=AgentDocumentsResponse, summary="Agent work files, grouped")

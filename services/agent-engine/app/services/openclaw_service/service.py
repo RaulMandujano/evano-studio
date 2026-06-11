@@ -10,6 +10,7 @@ from ._agents import AgentsMixin
 from ._bindings import BindingsMixin
 from ._channels import ChannelsMixin
 from ._documents import AgentDocumentsMixin
+from ._support import SupportMixin
 from ._config_ops import ConfigMixin
 from ._gateway import GatewayMixin
 from ._install_ops import InstallMixin
@@ -25,5 +26,6 @@ class OpenClawService(
     AgentsMixin,
     BindingsMixin,
     AgentDocumentsMixin,
+    SupportMixin,
 ):
     """Friendly front-end for OpenClaw: detect, install, configure, operate."""
