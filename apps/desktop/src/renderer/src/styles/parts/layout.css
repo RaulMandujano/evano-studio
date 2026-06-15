@@ -41,15 +41,10 @@
   font-weight: 700;
 }
 .sidebar-logo {
-  display: inline-flex;
   width: 30px;
   height: 30px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9px;
-  background: linear-gradient(140deg, var(--accent), var(--teal));
-  color: #0b0e16;
-  font-weight: 800;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .sidebar-nav {

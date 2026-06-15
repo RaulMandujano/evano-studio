@@ -7,11 +7,17 @@ export function Header() {
     <header className="site-header">
       <div className="container">
         <nav className="nav" aria-label="Primary">
-          <Link href="/" className="nav-brand">
-            <span className="nav-logo" aria-hidden="true">
-              E
+          <Link href="/" className="nav-brand" aria-label={siteConfig.name}>
+            <img
+              className="nav-logo"
+              src="/evano-mark.svg"
+              alt=""
+              width={34}
+              height={34}
+            />
+            <span className="nav-wordmark" aria-hidden="true">
+              Evano <span className="grad">Studio</span>
             </span>
-            {siteConfig.name}
           </Link>
 
           <ul className="nav-links">

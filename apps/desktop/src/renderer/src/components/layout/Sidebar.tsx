@@ -1,5 +1,6 @@
 import { navGroups, type ViewId } from "../../navigation";
 import { useAppInfo } from "../../hooks/useAppInfo";
+import evanoMark from "../../assets/evano-mark.svg";
 
 interface SidebarProps {
   active: ViewId;
@@ -12,9 +13,7 @@ export function Sidebar({ active, onNavigate }: SidebarProps) {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <span className="sidebar-logo" aria-hidden="true">
-          E
-        </span>
+        <img className="sidebar-logo" src={evanoMark} alt="" width={30} height={30} />
         <span className="sidebar-brand-text">
           Evano <strong>Studio</strong>
         </span>
