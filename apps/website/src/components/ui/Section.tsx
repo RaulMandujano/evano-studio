@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Reveal } from "@/components/ui/Reveal";
 
 type SectionProps = {
   id?: string;
@@ -30,10 +31,10 @@ type SectionHeadProps = {
 /** Standard heading block used at the top of most sections. */
 export function SectionHead({ eyebrow, title, subtitle, center }: SectionHeadProps) {
   return (
-    <div className={`section-head${center ? " section-head--center" : ""}`}>
+    <Reveal className={`section-head${center ? " section-head--center" : ""}`}>
       {eyebrow ? <span className="eyebrow">{eyebrow}</span> : null}
       <h2 className="section-title">{title}</h2>
       {subtitle ? <p className="section-subtitle">{subtitle}</p> : null}
-    </div>
+    </Reveal>
   );
 }

@@ -1,4 +1,5 @@
 import { Section, SectionHead } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
 import { hasRepo, siteConfig, techStack } from "@/content/site";
 
 export function OpenSource() {
@@ -11,7 +12,7 @@ export function OpenSource() {
       />
 
       <div className="grid grid--2" style={{ alignItems: "start" }}>
-        <article className="card">
+        <Reveal as="article" className="card">
           <h3 className="card-title">What you need (locally)</h3>
           <ul className="check-list" style={{ marginTop: 12 }}>
             <li className="check-item">
@@ -36,9 +37,9 @@ export function OpenSource() {
               </span>
             </li>
           </ul>
-        </article>
+        </Reveal>
 
-        <article className="card">
+        <Reveal as="article" className="card reveal-d1">
           <h3 className="card-title">The local stack</h3>
           <ul className="check-list" style={{ marginTop: 12 }}>
             {techStack.map((t) => (
@@ -50,7 +51,7 @@ export function OpenSource() {
               </li>
             ))}
           </ul>
-        </article>
+        </Reveal>
       </div>
 
       <div className="cta-actions" style={{ justifyContent: "flex-start", marginTop: 28 }}>

@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/Badge";
+import { Reveal } from "@/components/ui/Reveal";
 import { downloadUrls, hasRepo } from "@/content/site";
 
 /** A tiny CSS-only recreation of the app's Office view — agents at work. */
 function AppMockup() {
   return (
-    <div className="mockup" aria-hidden="true">
+    <div className="mockup float" aria-hidden="true">
       <div className="mockup-bar">
         <span className="mockup-dot" />
         <span className="mockup-dot" />
@@ -61,50 +62,54 @@ export function Hero() {
   return (
     <section className="hero">
       <div className="container hero-inner">
-        <div className="hero-badges">
+        <Reveal className="hero-badges" as="div">
           <Badge variant="free">100% free — no API keys, no subscriptions</Badge>
           <Badge variant="alpha" dot>
             Alpha — in active development
           </Badge>
-        </div>
+        </Reveal>
 
-        <h1 className="hero-title">
+        <Reveal as="h1" className="hero-title reveal-d1">
           Your own <span className="grad">AI team</span>, working for you.
           <br />
           Free. Local. One app.
-        </h1>
+        </Reveal>
 
-        <p className="hero-subtitle">
+        <Reveal as="p" className="hero-subtitle reveal-d2">
           Create AI agents that chat, form teams, follow an org chart, and report
           to you on Discord — all running on <strong>your</strong> computer with
           free local models. No API keys. No subscriptions. No cloud.
-        </p>
+        </Reveal>
 
-        <div className="hero-actions">
-          {hasRepo ? (
-            <>
-              <a className="btn btn--primary btn--lg" href={downloadUrls.mac} download>
-                 Download for macOS
-              </a>
-              <a className="btn btn--secondary btn--lg" href={downloadUrls.windows} download>
-                ⊞ Download for Windows
-              </a>
-            </>
-          ) : (
-            <Link className="btn btn--primary btn--lg" href="/download">
-              ⬇ Download
-            </Link>
-          )}
-        </div>
+        <Reveal className="reveal-d2">
+          <div className="hero-actions">
+            {hasRepo ? (
+              <>
+                <a className="btn btn--primary btn--lg" href={downloadUrls.mac} download>
+                   Download for macOS
+                </a>
+                <a className="btn btn--secondary btn--lg" href={downloadUrls.windows} download>
+                  ⊞ Download for Windows
+                </a>
+              </>
+            ) : (
+              <Link className="btn btn--primary btn--lg" href="/download">
+                ⬇ Download
+              </Link>
+            )}
+          </div>
 
-        <p className="hero-platforms">
-          macOS (Apple Silicon) · Windows 10/11 · Open source (AGPL-3.0) ·{" "}
-          <Link href="/download">all download options</Link>
-        </p>
+          <p className="hero-platforms">
+            macOS (Apple Silicon) · Windows 10/11 · Open source (AGPL-3.0) ·{" "}
+            <Link href="/download">all download options</Link>
+          </p>
+        </Reveal>
 
-        <AppMockup />
+        <Reveal className="reveal-d3" scale>
+          <AppMockup />
+        </Reveal>
 
-        <ul className="hero-points">
+        <Reveal as="ul" className="hero-points reveal-d2">
           <li>
             <span className="tick">✓</span> $0 — powered by free local models
           </li>
@@ -117,7 +122,7 @@ export function Hero() {
           <li>
             <span className="tick">✓</span> Open source
           </li>
-        </ul>
+        </Reveal>
       </div>
     </section>
   );

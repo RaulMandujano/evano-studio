@@ -1,4 +1,5 @@
 import { Section, SectionHead } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
 
 const useCases = [
   {
@@ -28,11 +29,11 @@ export function ForSmallBusinesses() {
         subtitle="Evano Studio is a control center, not a developer tool. Build AI agents that handle repeatable work — privately, on your own hardware."
       />
       <div className="grid grid--2">
-        {useCases.map((u) => (
-          <article key={u.title} className="card">
+        {useCases.map((u, i) => (
+          <Reveal key={u.title} as="article" className={`card card--feature reveal-d${(i % 2) + 1}`}>
             <h3 className="card-title">{u.title}</h3>
             <p className="card-text">{u.text}</p>
-          </article>
+          </Reveal>
         ))}
       </div>
       <p className="muted mt-sm" style={{ marginTop: 24 }}>

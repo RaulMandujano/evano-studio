@@ -1,10 +1,53 @@
 import { Section } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
+
+/** Dark product mockup: a month calendar with scheduled-routine event chips. */
+function CalendarMockup() {
+  // a few "days" carry an event chip; tone cycles success / scheduled / amber
+  const events: Record<number, { tone: string; label: string }> = {
+    3: { tone: "ok", label: "Daily prices" },
+    8: { tone: "accent", label: "Weekly report" },
+    12: { tone: "ok", label: "Daily prices" },
+    17: { tone: "amber", label: "Newsletter" },
+    21: { tone: "ok", label: "Daily prices" },
+    25: { tone: "accent", label: "Weekly report" },
+  };
+  return (
+    <div className="mockup mockup--sm" aria-hidden="true">
+      <div className="mockup-bar">
+        <span className="mockup-dot" />
+        <span className="mockup-dot" />
+        <span className="mockup-dot" />
+        <span className="mockup-title">Evano Studio — Calendar · June</span>
+      </div>
+      <div className="mockup-main">
+        <div className="mk-cal">
+          {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
+            <span key={i} className="mk-cal-dow">
+              {d}
+            </span>
+          ))}
+          {Array.from({ length: 28 }).map((_, i) => {
+            const day = i + 1;
+            const ev = events[day];
+            return (
+              <div key={day} className="mk-cal-cell">
+                <span className="mk-cal-num">{day}</span>
+                {ev ? <span className={`mk-cal-ev mk-cal-ev--${ev.tone}`}>{ev.label}</span> : null}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function VisualRoutinesCalendar() {
   return (
     <Section id="routines">
       <div className="split">
-        <div>
+        <Reveal>
           <span className="eyebrow">Visual routines calendar</span>
           <h2 className="split-title">Schedule agents from a calendar</h2>
           <p className="split-text">
@@ -29,35 +72,10 @@ export function VisualRoutinesCalendar() {
               </span>
             </li>
           </ul>
-        </div>
-        <div className="split-media">
-          <div className="panel" aria-hidden="true">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(7, 1fr)",
-                gap: 8,
-              }}
-            >
-              {Array.from({ length: 28 }).map((_, i) => (
-                <div
-                  key={i}
-                  style={{
-                    aspectRatio: "1 / 1",
-                    borderRadius: 8,
-                    border: "1px solid var(--border)",
-                    background:
-                      i % 9 === 4
-                        ? "var(--accent-soft)"
-                        : i % 7 === 2
-                          ? "var(--teal-soft)"
-                          : "var(--surface-2)",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        </Reveal>
+        <Reveal className="split-media reveal-d1" scale>
+          <CalendarMockup />
+        </Reveal>
       </div>
     </Section>
   );

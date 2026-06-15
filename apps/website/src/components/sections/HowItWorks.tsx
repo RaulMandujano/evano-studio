@@ -1,4 +1,5 @@
 import { Section, SectionHead } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
 
 const steps = [
   {
@@ -29,11 +30,11 @@ export function HowItWorks() {
       />
       <ol className="steps">
         {steps.map((s, i) => (
-          <li key={s.title} className="step">
+          <Reveal key={s.title} as="li" className={`step reveal-d${(i % 4) + 1}`}>
             <span className="step-num">{i + 1}</span>
             <h3>{s.title}</h3>
             <p>{s.text}</p>
-          </li>
+          </Reveal>
         ))}
       </ol>
     </Section>

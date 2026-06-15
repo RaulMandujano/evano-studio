@@ -1,4 +1,5 @@
 import { Section, SectionHead } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
 
 const points = [
   { big: "$0", text: "No API keys, no subscriptions, no metered usage. Ever." },
@@ -17,11 +18,15 @@ export function FreeByDefault() {
         subtitle="Evano Studio runs on free local models through Ollama. Your hardware is the only thing you bring."
       />
       <div className="free-band">
-        {points.map((p) => (
-          <article key={p.big} className="free-item">
+        {points.map((p, i) => (
+          <Reveal
+            key={p.big}
+            as="article"
+            className={`free-item reveal-d${Math.min(i + 1, 4)}`}
+          >
             <span className="free-big">{p.big}</span>
             <p>{p.text}</p>
-          </article>
+          </Reveal>
         ))}
       </div>
     </Section>

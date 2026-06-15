@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { Section } from "@/components/ui/Section";
+import { Reveal } from "@/components/ui/Reveal";
 import { downloadUrls, hasRepo } from "@/content/site";
 
 /** Closing call-to-action band used on the home page. */
 export function DownloadCta() {
   return (
     <Section id="download-cta">
-      <div className="cta-band">
+      <Reveal className="cta-band" scale>
         <h2>Hire your first AI employee today</h2>
         <p>
           Free forever, running on your own Mac or Windows PC. Set up in minutes —
@@ -31,7 +32,7 @@ export function DownloadCta() {
             All options
           </Link>
         </div>
-      </div>
+      </Reveal>
     </Section>
   );
 }
