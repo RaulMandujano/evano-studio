@@ -54,6 +54,17 @@ export interface OpenClawInstallStatus {
   log_tail: string;
 }
 
+/** A prerequisite Evano can install for you (download + launch official installer). */
+export type PrereqTarget = "node" | "ollama";
+
+/** Response from `/openclaw/prereqs/{target}/install[/status]`. */
+export interface PrereqInstallStatus {
+  state: string; // idle | downloading | launching | launched | error
+  message: string;
+  percent: number;
+  download_url: string; // official page, manual fallback
+}
+
 /** Response from `POST /openclaw/config`. */
 export interface OpenClawConfigResult {
   ok: boolean;

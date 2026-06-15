@@ -75,6 +75,19 @@ def test_install_status_idle(client: TestClient) -> None:
     assert s["state"] in ("idle", "running", "success", "error")
 
 
+def test_prereq_install_status_idle(client: TestClient) -> None:
+    # Reading status must NOT trigger a download — it just reports current state.
+    s = client.get("/openclaw/prereqs/node/install/status").json()
+    assert s["state"] in ("idle", "downloading", "launching", "launched", "error")
+    assert "percent" in s and "download_url" in s
+
+
+def test_prereq_install_unknown_target_errors(client: TestClient) -> None:
+    r = client.post("/openclaw/prereqs/bogus/install").json()
+    assert r["state"] == "error"
+    assert "Unknown installer" in r["message"]
+
+
 def test_dashboard_url_uses_config_token(client: TestClient, tmp_path: Path, monkeypatch) -> None:
     cfg = {"gateway": {"port": 18789, "auth": {"token": "abc123"}}}
     (tmp_path / ".openclaw" / "openclaw.json").write_text(json.dumps(cfg), encoding="utf-8")

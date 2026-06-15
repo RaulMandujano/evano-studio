@@ -25,6 +25,8 @@ import type {
   SessionDetail,
   ClearSessionsResult,
   FileHandoffResult,
+  PrereqInstallStatus,
+  PrereqTarget,
 } from "../types";
 
 export function getOpenClawStatus(): Promise<OpenClawStatus> {
@@ -52,6 +54,19 @@ export function installOpenClaw(): Promise<OpenClawInstallStatus> {
 /** `GET /openclaw/install/status` — install progress. */
 export function getOpenClawInstallStatus(): Promise<OpenClawInstallStatus> {
   return requestJson<OpenClawInstallStatus>("/openclaw/install/status");
+}
+
+/**
+ * `POST /openclaw/prereqs/{target}/install` — download the official Node.js or
+ * Ollama installer and launch it (non-blocking; poll status for progress).
+ */
+export function installPrereq(target: PrereqTarget): Promise<PrereqInstallStatus> {
+  return requestJson<PrereqInstallStatus>(`/openclaw/prereqs/${target}/install`, { method: "POST" });
+}
+
+/** `GET /openclaw/prereqs/{target}/install/status` — download/launch progress. */
+export function getPrereqInstallStatus(target: PrereqTarget): Promise<PrereqInstallStatus> {
+  return requestJson<PrereqInstallStatus>(`/openclaw/prereqs/${target}/install/status`);
 }
 
 /** `POST /openclaw/config` — configure OpenClaw (free Gemma 4, or API key). */

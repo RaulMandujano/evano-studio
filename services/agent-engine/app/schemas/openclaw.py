@@ -52,6 +52,13 @@ class OpenClawInstallStatus(BaseModel):
     log_tail: str = ""
 
 
+class PrereqInstallStatus(BaseModel):
+    state: str  # idle | downloading | launching | launched | error
+    message: str = ""
+    percent: int = 0
+    download_url: str = ""  # official page, for a manual fallback
+
+
 class OpenClawConfigRequest(BaseModel):
     mode: Literal["free", "api"] = "free"
     model: str = "gemma4:latest"

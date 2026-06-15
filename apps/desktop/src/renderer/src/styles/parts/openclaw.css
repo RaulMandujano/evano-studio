@@ -10,7 +10,24 @@
 .oc-check {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
+}
+/* Live install feedback drops to its own line under the row. */
+.oc-check-progress {
+  flex-basis: 100%;
+  font-size: 0.82rem;
+  color: var(--text-faint);
+}
+.oc-check-progress--ok {
+  color: var(--accent);
+}
+.oc-check-progress--error {
+  color: var(--danger, #ff6b6b);
+}
+.oc-check-progress a {
+  color: inherit;
+  text-decoration: underline;
 }
 .oc-mark {
   width: 22px;

@@ -1,7 +1,7 @@
-"""Install mixin: kick off / poll the background OpenClaw install."""
+"""Install mixin: kick off / poll the background OpenClaw + prerequisite installs."""
 from __future__ import annotations
 
-from . import install
+from . import install, prereq_install
 
 
 class InstallMixin:
@@ -12,3 +12,10 @@ class InstallMixin:
     def install_status(self) -> dict:
         s = install._install_manager.status()
         return {"state": s.state, "message": s.message, "log_tail": s.log_tail}
+
+    # ---- Prerequisites (Node.js / Ollama): download + launch official installer
+    def start_prereq_install(self, target: str) -> dict:
+        return prereq_install.start(target)
+
+    def prereq_install_status(self, target: str) -> dict:
+        return prereq_install.status(target)

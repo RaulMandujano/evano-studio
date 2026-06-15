@@ -6,10 +6,8 @@ import { Button } from "../components/ui/Button";
 import { useBackendResource } from "../hooks/useBackendResource";
 import { backendApi } from "../lib/api/client";
 import { useNavigate } from "../navigation-context";
-import type { OpenClawStatus, ToolPresence } from "../lib/api/types";
+import type { OpenClawStatus, PrereqInstallStatus, PrereqTarget, ToolPresence } from "../lib/api/types";
 
-const NODE_URL = "https://nodejs.org/en/download";
-const OLLAMA_URL = "https://ollama.com/download";
 const OPENCLAW_DOCS = "https://docs.openclaw.ai/";
 
 /** Visual state of a step in the guided flow. */
@@ -82,11 +80,14 @@ function Check({
   label,
   version,
   action,
+  progress,
 }: {
   ok: boolean;
   label: string;
   version?: string | null;
-  action?: { text: string; onClick: () => void };
+  action?: { text: string; onClick: () => void; disabled?: boolean };
+  /** Live install feedback shown on its own line below the row. */
+  progress?: { message: string; percent: number; tone: "info" | "ok" | "error"; manualUrl?: string };
 }) {
   return (
     <li className="oc-check">
@@ -95,7 +96,31 @@ function Check({
       </span>
       <span className="oc-check-label">{label}</span>
       {version ? <span className="oc-check-ver mono">{version}</span> : null}
-      {!ok && action ? <Button onClick={action.onClick}>{action.text}</Button> : null}
+      {!ok && action ? (
+        <Button variant="primary" onClick={action.onClick} disabled={action.disabled}>
+          {action.text}
+        </Button>
+      ) : null}
+      {progress ? (
+        <span className={`oc-check-progress oc-check-progress--${progress.tone}`}>
+          {progress.message}
+          {progress.percent > 0 && progress.percent < 100 ? ` ${progress.percent}%` : ""}
+          {progress.tone === "error" && progress.manualUrl ? (
+            <>
+              {" "}
+              <a
+                href={progress.manualUrl}
+                onClick={(e) => {
+                  e.preventDefault();
+                  void window.evano?.services?.openExternal?.(progress.manualUrl!);
+                }}
+              >
+                Download manually
+              </a>
+            </>
+          ) : null}
+        </span>
+      ) : null}
     </li>
   );
 }
@@ -121,9 +146,66 @@ export function OpenClawView() {
   const [busy, setBusy] = useState<string | null>(null);
   const pollRef = useRef<number | null>(null);
 
-  useEffect(() => () => { if (pollRef.current) window.clearInterval(pollRef.current); }, []);
+  // Per-prerequisite (Node.js / Ollama) one-click install progress.
+  const [prereq, setPrereq] = useState<Partial<Record<PrereqTarget, PrereqInstallStatus>>>({});
+  const prereqPolls = useRef<Partial<Record<PrereqTarget, number>>>({});
+
+  useEffect(
+    () => () => {
+      if (pollRef.current) window.clearInterval(pollRef.current);
+      Object.values(prereqPolls.current).forEach((id) => id && window.clearInterval(id));
+    },
+    [],
+  );
 
   const open = (url: string) => void window.evano?.services?.openExternal?.(url);
+
+  // Download + launch the official Node.js/Ollama installer, then poll progress.
+  const installPrereq = async (target: PrereqTarget) => {
+    setPrereq((p) => ({ ...p, [target]: { state: "downloading", message: "Starting…", percent: 0, download_url: "" } }));
+    try {
+      const init = await backendApi.installPrereq(target);
+      setPrereq((p) => ({ ...p, [target]: init }));
+      if (prereqPolls.current[target]) window.clearInterval(prereqPolls.current[target]);
+      prereqPolls.current[target] = window.setInterval(async () => {
+        try {
+          const st = await backendApi.getPrereqInstallStatus(target);
+          setPrereq((p) => ({ ...p, [target]: st }));
+          if (st.state === "launched" || st.state === "error") {
+            window.clearInterval(prereqPolls.current[target]);
+            delete prereqPolls.current[target];
+            statusRes.refresh();
+          }
+        } catch {
+          /* keep polling */
+        }
+      }, 1500);
+    } catch (e) {
+      setPrereq((p) => ({
+        ...p,
+        [target]: { state: "error", message: e instanceof Error ? e.message : "Install failed.", percent: 0, download_url: "" },
+      }));
+    }
+  };
+
+  // Map a prerequisite's install state to the props the <Check> row needs.
+  const prereqBusy = (t: PrereqTarget) => {
+    const st = prereq[t];
+    return st?.state === "downloading" || st?.state === "launching";
+  };
+  const prereqLabel = (t: PrereqTarget, base: string) => {
+    const st = prereq[t];
+    if (st?.state === "downloading") return `Downloading… ${st.percent || 0}%`;
+    if (st?.state === "launching") return "Opening installer…";
+    return base;
+  };
+  const prereqProgress = (t: PrereqTarget): { message: string; percent: number; tone: "info" | "ok" | "error"; manualUrl?: string } | undefined => {
+    const st = prereq[t];
+    if (!st || st.state === "idle") return undefined;
+    if (st.state === "error") return { message: st.message, percent: 0, tone: "error", manualUrl: st.download_url };
+    if (st.state === "launched") return { message: st.message, percent: 0, tone: "ok" };
+    return { message: st.message, percent: st.percent, tone: "info" };
+  };
 
   const install = async () => {
     setInstalling(true);
@@ -269,13 +351,15 @@ export function OpenClawView() {
               ok={tp(s.node)}
               label="Node.js"
               version={s.node.version}
-              action={{ text: "Get Node.js", onClick: () => open(NODE_URL) }}
+              action={{ text: prereqLabel("node", "Install Node.js"), onClick: () => installPrereq("node"), disabled: prereqBusy("node") }}
+              progress={prereqProgress("node")}
             />
             <Check
               ok={tp(s.ollama)}
               label="Ollama (free local AI)"
               version={s.ollama.version}
-              action={{ text: "Get Ollama", onClick: () => open(OLLAMA_URL) }}
+              action={{ text: prereqLabel("ollama", "Install Ollama"), onClick: () => installPrereq("ollama"), disabled: prereqBusy("ollama") }}
+              progress={prereqProgress("ollama")}
             />
             <li className="oc-check">
               <span className={`oc-mark ${tp(s.openclaw) ? "is-ok" : "is-missing"}`} aria-hidden="true">

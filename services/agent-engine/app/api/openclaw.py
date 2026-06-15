@@ -38,6 +38,7 @@ from ..schemas.openclaw import (
     OpenClawConfigResult,
     OpenClawInstallStatus,
     OpenClawStatusResponse,
+    PrereqInstallStatus,
     SaveAgentFileRequest,
     SessionDetail,
     SessionsResponse,
@@ -69,6 +70,24 @@ def openclaw_install(service: OpenClawService = Depends(get_openclaw_service)) -
 @router.get("/install/status", response_model=OpenClawInstallStatus, summary="Install progress")
 def openclaw_install_status(service: OpenClawService = Depends(get_openclaw_service)) -> dict:
     return service.install_status()
+
+
+@router.post(
+    "/prereqs/{target}/install",
+    response_model=PrereqInstallStatus,
+    summary="Download + launch the official Node.js/Ollama installer",
+)
+def prereq_install(target: str, service: OpenClawService = Depends(get_openclaw_service)) -> dict:
+    return service.start_prereq_install(target)
+
+
+@router.get(
+    "/prereqs/{target}/install/status",
+    response_model=PrereqInstallStatus,
+    summary="Prerequisite install progress",
+)
+def prereq_install_status(target: str, service: OpenClawService = Depends(get_openclaw_service)) -> dict:
+    return service.prereq_install_status(target)
 
 
 @router.post("/config", response_model=OpenClawConfigResult, summary="Configure OpenClaw")
