@@ -2,6 +2,11 @@
 
 > Create local AI agents for your business — without paid APIs, without cloud lock-in, and without touching the terminal.
 
+[![Total downloads](https://img.shields.io/github/downloads/RaulMandujano/evano-studio/total?label=downloads&color=2ea043)](https://github.com/RaulMandujano/evano-studio/releases)
+[![Latest release downloads](https://img.shields.io/github/downloads/RaulMandujano/evano-studio/latest/total?label=latest%20release&color=2ea043)](https://github.com/RaulMandujano/evano-studio/releases/latest)
+[![Latest version](https://img.shields.io/github/v/release/RaulMandujano/evano-studio?label=version&color=8957e5)](https://github.com/RaulMandujano/evano-studio/releases/latest)
+[![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue)](LICENSE)
+
 **Status:** 🚧 **Alpha** — the core features are built and run locally from source, but the project is **not production-ready**: there's no signed installer yet, and you currently run it from source. Expect rough edges. See the [roadmap](docs/ROADMAP.md).
 
 **License:** [AGPL-3.0](LICENSE) · **Contributing:** [CONTRIBUTING.md](CONTRIBUTING.md) · **Security:** [SECURITY.md](SECURITY.md)
