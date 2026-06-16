@@ -1,28 +1,27 @@
 <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Evano Studio">
   <defs>
-    <linearGradient id="ev-bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FF7A3D" />
-      <stop offset="0.55" stop-color="#FF4D6D" />
+    <linearGradient id="ev" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF8A3D" />
+      <stop offset="0.5" stop-color="#FF4D6D" />
       <stop offset="1" stop-color="#FF2D78" />
     </linearGradient>
   </defs>
-  <rect x="16" y="16" width="480" height="480" rx="132" fill="url(#ev-bg)" />
-  <ellipse cx="256" cy="268" rx="180" ry="150" transform="rotate(-26 256 268)"
-    fill="none" stroke="#ffffff" stroke-opacity="0.55" stroke-width="9"
-    stroke-linecap="round" stroke-dasharray="150 600" />
-  <g fill="#ffffff">
-    <circle cx="92" cy="196" r="18" />
-    <circle cx="126" cy="312" r="13" />
-    <circle cx="416" cy="214" r="15" />
-    <circle cx="372" cy="350" r="12" />
+
+  <!-- three crossing orbits (atom) -->
+  <g fill="none" stroke="url(#ev)" stroke-width="19" stroke-linecap="round">
+    <ellipse cx="256" cy="256" rx="208" ry="84" transform="rotate(0 256 256)" />
+    <ellipse cx="256" cy="256" rx="208" ry="84" transform="rotate(60 256 256)" />
+    <ellipse cx="256" cy="256" rx="208" ry="84" transform="rotate(120 256 256)" />
   </g>
-  <line x1="256" y1="118" x2="256" y2="162" stroke="#ffffff" stroke-width="13" stroke-linecap="round" />
-  <circle cx="256" cy="106" r="17" fill="#ffffff" />
-  <rect x="148" y="160" width="216" height="186" rx="56" fill="#ffffff" />
-  <rect x="172" y="184" width="168" height="138" rx="42" fill="#17141d" />
-  <g fill="none" stroke="#ffffff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M203 240 q17 -24 34 0" />
-    <path d="M275 240 q17 -24 34 0" />
-    <path d="M220 274 q36 28 72 0" />
+
+  <!-- orbit nodes -->
+  <g fill="url(#ev)">
+    <circle cx="256" cy="50" r="31" />
+    <circle cx="78" cy="359" r="27" />
+    <circle cx="434" cy="359" r="27" />
   </g>
+
+  <!-- center hexagon (flat-top) with a lighter inner hex -->
+  <polygon points="318,256 287,309.7 225,309.7 194,256 225,202.3 287,202.3" fill="url(#ev)" />
+  <polygon points="288,256 272,283.7 240,283.7 224,256 240,228.3 272,228.3" fill="#ffffff" fill-opacity="0.28" />
 </svg>

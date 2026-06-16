@@ -30,7 +30,7 @@ export function Footer() {
                 height={34}
               />
               <span className="nav-wordmark" aria-hidden="true">
-                Evano <span className="grad">Studio</span>
+                Evano Studio
               </span>
             </Link>
             <p>
